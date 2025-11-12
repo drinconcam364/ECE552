@@ -1,4 +1,4 @@
-module unpack(in, sign, exp, mantissa);
+module unpack32(in, sign, exp, mantissa);
     input [31:0] in;
     output sign;
     output [7:0] exp;
