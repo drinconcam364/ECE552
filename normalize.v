@@ -1,17 +1,22 @@
-module normalize( mantissa_in, exp_in, mantissa_out, exp_out(abcd_32_exponent));
-    input [23:0] mantissa_in;
-    input [4:0] exp_in;
-    output reg [7:0] exp_out;
-    output reg [23:0] mantissa_out;
-
-    localparam [7:0] FP32_BIAS = 8'd127;
+module normalize(mantissa_in, exp_in, sign_in, out);
+    input [24:0] mantissa_in;
+    input [7:0] exp_in;
+    input sign_in;
+    output [31:0] out;
+    reg [7:0]  normalized_exp;
+    reg [23:0] normalized_mantissa;
     always @* begin
-        if (mant_in[23]) begin
-            mant_out = mant_in;
-            exp_out  = FP32_BIAS + {3'b000, exp_block};  // 127 + exp_block
-        end else begin
-            mant_out = mant_in << 1;
-            exp_out  = FP32_BIAS + {3'b000, exp_block} - 1;
+        normalized_exp  = exp_in;
+        normalized_mantissa = mantissa_in[23:0];
+
+        // If mant_total overflowed into bit 24, normalize:
+        // - shift mantissa right by 1
+        // - increment exponent
+        if (mantissa_in[24]) begin
+            normalized_mantissa = mantissa_in[24:1]; // keep top 24 bits after shift
+            normalized_exp  = exp_in + 1'b1;
         end
     end
+    wire [22:0] frac_out = normalized_mantissa[22:0];
+    assign out = {sign_in, normalized_exp, frac_out};
 endmodule
