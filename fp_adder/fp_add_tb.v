@@ -40,7 +40,7 @@ module fp_add_tb;
     $display(" time |              a              b  |           result");
     $display("----------------------------------------------------------");
 
-    // -------- Vector 1: 1.0 + 1.0 = 2.0 (0x40000000) --------
+    // -------- Vector 1: 0.5 + 0.25 = 0.75 (0x3F400000) --------
     @(posedge clk);
     a <= 32'h3F000000; b <= 32'h3E800000; in_valid <= 1'b1;
     last_a <= 32'h3F000000; last_b <= 32'h3E800000;
@@ -63,10 +63,10 @@ module fp_add_tb;
     @(posedge clk);
     $display("%4t | 0x%08h 0x%08h | 0x%08h", $time, last_a, last_b, result);
 
-    // -------- Vector 3: 1.0 + (-1.0) = +0.0 (0x00000000) --------
+    // -------- Vector 3: 5.75 + 0.43 = +6.18 (0x40c5c28f) --------
     @(posedge clk);
-    a <= 32'h41000000; b <= 32'h3E800000; in_valid <= 1'b1;
-    last_a <= 32'h41000000; last_b <= 32'h3E800000;
+    a <= 32'h40b80000; b <= 32'h3edc28f6; in_valid <= 1'b1;
+    last_a <= 32'h40b80000; last_b <= 32'h3edc28f6;
     @(posedge clk);
     in_valid <= 1'b0;
 

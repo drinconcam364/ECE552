@@ -6,6 +6,10 @@ module unpack32(in, sign, exp, mantissa);
 
     assign sign = in[31];
     assign exp = in[30:23];
+    wire [22:0] f = in[22:0];
+
+    wire is_zero     = (exp == 8'h00) && (f == 23'd0);
+    wire is_subnorm  = (exp == 8'h00) && (f != 23'd0);
     
-    assign mantissa = (exp == 8'b0) ? {1'b0, in[22:0]} : {1'b1, in[22:0]};
+    assign mantissa = is_zero ? 24'd0 : is_subnorm ? {1'b0, f} : {1'b1, f};
 endmodule

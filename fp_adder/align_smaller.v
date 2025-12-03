@@ -10,55 +10,58 @@ module align_smaller #(parameter W = 24) (
 );
 
     reg [W-1:0] shifted;
-    reg guard_bit, round_bit, sticky_bit;
-
-    // NEW: declare a mask and a loop index
-    reg [W-1:0] sticky_mask;
+    reg g_reg, r_reg, s_reg;
     integer i;
 
     always @(*) begin
         // Defaults
-        shifted     = in_val;
-        guard_bit   = 1'b0;
-        round_bit   = 1'b0;
-        sticky_bit  = 1'b0;
-        sticky_mask = {W{1'b0}};
+        shifted = in_val;
+        g_reg   = 1'b0;
+        r_reg   = 1'b0;
+        s_reg   = 1'b0;
 
         // No shift
         if (shift_amt == 0) begin
-            shifted    = in_val;
+            shifted = in_val;
+        end
 
-        // Everything shifted out (kept LSB and G/R are off-bus)
-        end else if (shift_amt >= (W + 2)) begin
-            shifted    = {W{1'b0}};
-            sticky_bit = |in_val;
+        // Shift amount >= width: everything shifts out, sticky = OR(all bits)
+        else if (shift_amt >= W[7:0]) begin
+            shifted = {W{1'b0}};
+            g_reg   = 1'b0;
+            r_reg   = 1'b0;
+            s_reg   = 1'b0;
+            for (i = 0; i < W; i = i + 1)
+                s_reg = s_reg | in_val[i];
+        end
 
-        // General case: 1 .. W+1
-        end else begin
-            shifted    = in_val >> shift_amt;
+        // Normal case: 1 <= shift_amt < W
+        else begin
+            shifted = in_val >> shift_amt;
 
-            // Guard = bit just below the kept LSB after shift
-            guard_bit  = (shift_amt <= W) ? in_val[shift_amt-1] : 1'b0;
+            // Guard = bit just below new LSB
+            g_reg  = in_val[shift_amt-1];
 
-            // Round = next bit below guard
-            round_bit  = (shift_amt > 1)  ? in_val[shift_amt-2] : 1'b0;
+            // Round = next bit below guard (if it exists)
+            if (shift_amt > 1)
+                r_reg = in_val[shift_amt-2];
+            else
+                r_reg = 1'b0;
 
             // Sticky = OR of all bits below round
+            s_reg = 1'b0;
             if (shift_amt > 2) begin
-                // Build a mask with ones in positions [0 .. shift_amt-3]
-                sticky_mask = {W{1'b0}};
                 for (i = 0; i < W; i = i + 1) begin
-                    if (i < (shift_amt - 2))
-                        sticky_mask[i] = 1'b1;
+                    if (i < shift_amt-2)
+                        s_reg = s_reg | in_val[i];
                 end
-                sticky_bit = |(in_val & sticky_mask);
             end
         end
     end
 
     assign aligned_val = shifted;
-    assign guard  = guard_bit;
-    assign round  = round_bit;
-    assign sticky = sticky_bit;
+    assign guard       = g_reg;
+    assign round       = r_reg;
+    assign sticky      = s_reg;
 
 endmodule
