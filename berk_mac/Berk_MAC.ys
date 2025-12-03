@@ -1,0 +1,18 @@
+read_liberty -lib stdcells.lib
+
+read_verilog
+
+# Set top module
+hierarchy -top fp_add
+
+# Generic synthesis
+synth -top fp_add
+
+# Map flip-flops
+dfflibmap -liberty stdcells.lib
+
+# 6) Technology mapping for combinational logic using ABC
+abc -liberty stdcells.lib
+
+# Area
+stat -liberty stdcells.lib

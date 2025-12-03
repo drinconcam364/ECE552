@@ -1,0 +1,3302 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2025  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.60 (git sha1 5bafeb77dc71e054fa331ab9efa613e6fb0a1c49, clang++ 17.0.0 -fPIC -O3)
+
+-- Executing script file `fp_synth.ys' --
+
+1. Executing Liberty frontend: stdcells.lib
+Imported 135 cell types from liberty file.
+
+2. Executing Verilog-2005 frontend: fp_add.v
+Parsing Verilog input from `fp_add.v' to AST representation.
+verilog frontend filename fp_add.v
+Generating RTLIL representation for module `\fp_add'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: align_smaller.v
+Parsing Verilog input from `align_smaller.v' to AST representation.
+verilog frontend filename align_smaller.v
+Generating RTLIL representation for module `\align_smaller'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: round_pack.v
+Parsing Verilog input from `round_pack.v' to AST representation.
+verilog frontend filename round_pack.v
+Generating RTLIL representation for module `\round_pack'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: unpack32.v
+Parsing Verilog input from `unpack32.v' to AST representation.
+verilog frontend filename unpack32.v
+Generating RTLIL representation for module `\unpack32'.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: second_level_lookahead.v
+Parsing Verilog input from `second_level_lookahead.v' to AST representation.
+verilog frontend filename second_level_lookahead.v
+Generating RTLIL representation for module `\second_level_lookahead'.
+Successfully finished Verilog frontend.
+
+7. Executing Verilog-2005 frontend: normalize.v
+Parsing Verilog input from `normalize.v' to AST representation.
+verilog frontend filename normalize.v
+Generating RTLIL representation for module `\fp_normalize27'.
+Generating RTLIL representation for module `\lzc24'.
+Successfully finished Verilog frontend.
+
+8. Executing Verilog-2005 frontend: eight_bit_cla_adder.v
+Parsing Verilog input from `eight_bit_cla_adder.v' to AST representation.
+verilog frontend filename eight_bit_cla_adder.v
+Generating RTLIL representation for module `\eight_bit_cla_adder'.
+Successfully finished Verilog frontend.
+
+9. Executing HIERARCHY pass (managing design hierarchy).
+
+9.1. Analyzing design hierarchy..
+Top module:  \fp_add
+Used module:     \round_pack
+Used module:     \fp_normalize27
+Used module:         \lzc24
+Used module:     \second_level_lookahead
+Used module:         \eight_bit_cla_adder
+Used module:     \align_smaller
+Used module:     \unpack32
+Parameter \W = 27
+
+9.2. Executing AST frontend in derive mode using pre-parsed AST for module `\align_smaller'.
+Parameter \W = 27
+Generating RTLIL representation for module `$paramod\align_smaller\W=s32'00000000000000000000000000011011'.
+
+9.3. Analyzing design hierarchy..
+Top module:  \fp_add
+Used module:     \round_pack
+Used module:     \fp_normalize27
+Used module:         \lzc24
+Used module:     \second_level_lookahead
+Used module:         \eight_bit_cla_adder
+Used module:     $paramod\align_smaller\W=s32'00000000000000000000000000011011
+Used module:     \unpack32
+
+9.4. Analyzing design hierarchy..
+Top module:  \fp_add
+Used module:     \round_pack
+Used module:     \fp_normalize27
+Used module:         \lzc24
+Used module:     \second_level_lookahead
+Used module:         \eight_bit_cla_adder
+Used module:     $paramod\align_smaller\W=s32'00000000000000000000000000011011
+Used module:     \unpack32
+Removing unused module `\align_smaller'.
+Removed 1 unused modules.
+
+10. Executing SYNTH pass.
+
+10.1. Executing HIERARCHY pass (managing design hierarchy).
+
+10.1.1. Analyzing design hierarchy..
+Top module:  \fp_add
+Used module:     \round_pack
+Used module:     \fp_normalize27
+Used module:         \lzc24
+Used module:     \second_level_lookahead
+Used module:         \eight_bit_cla_adder
+Used module:     $paramod\align_smaller\W=s32'00000000000000000000000000011011
+Used module:     \unpack32
+
+10.1.2. Analyzing design hierarchy..
+Top module:  \fp_add
+Used module:     \round_pack
+Used module:     \fp_normalize27
+Used module:         \lzc24
+Used module:     \second_level_lookahead
+Used module:         \eight_bit_cla_adder
+Used module:     $paramod\align_smaller\W=s32'00000000000000000000000000011011
+Used module:     \unpack32
+Removed 0 unused modules.
+
+10.2. Executing PROC pass (convert processes to netlists).
+
+10.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+10.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 25 switch rules as full_case in process $proc$normalize.v:97$204 in module lzc24.
+Marked 31 switch rules as full_case in process $proc$align_smaller.v:16$440 in module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+Marked 1 switch rules as full_case in process $proc$fp_add.v:194$28 in module fp_add.
+Marked 1 switch rules as full_case in process $proc$fp_add.v:156$26 in module fp_add.
+Marked 1 switch rules as full_case in process $proc$fp_add.v:90$22 in module fp_add.
+Marked 1 switch rules as full_case in process $proc$fp_add.v:15$1 in module fp_add.
+Removed a total of 0 dead cases.
+
+10.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 17 redundant assignments.
+Promoted 8 assignments to connections.
+
+10.2.4. Executing PROC_INIT pass (extract init attributes).
+
+10.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_n in `\fp_add.$proc$fp_add.v:194$28'.
+Found async reset \rst_n in `\fp_add.$proc$fp_add.v:156$26'.
+Found async reset \rst_n in `\fp_add.$proc$fp_add.v:90$22'.
+Found async reset \rst_n in `\fp_add.$proc$fp_add.v:15$1'.
+
+10.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~56 debug messages>
+
+10.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\lzc24.$proc$normalize.v:97$204'.
+     1/51: $25\found[0:0]
+     2/51: $25\c[4:0]
+     3/51: $24\found[0:0]
+     4/51: $24\c[4:0]
+     5/51: $23\found[0:0]
+     6/51: $23\c[4:0]
+     7/51: $22\found[0:0]
+     8/51: $22\c[4:0]
+     9/51: $21\found[0:0]
+    10/51: $21\c[4:0]
+    11/51: $20\found[0:0]
+    12/51: $20\c[4:0]
+    13/51: $19\found[0:0]
+    14/51: $19\c[4:0]
+    15/51: $18\found[0:0]
+    16/51: $18\c[4:0]
+    17/51: $17\found[0:0]
+    18/51: $17\c[4:0]
+    19/51: $16\found[0:0]
+    20/51: $16\c[4:0]
+    21/51: $15\found[0:0]
+    22/51: $15\c[4:0]
+    23/51: $14\found[0:0]
+    24/51: $14\c[4:0]
+    25/51: $13\found[0:0]
+    26/51: $13\c[4:0]
+    27/51: $12\found[0:0]
+    28/51: $12\c[4:0]
+    29/51: $11\found[0:0]
+    30/51: $11\c[4:0]
+    31/51: $10\found[0:0]
+    32/51: $10\c[4:0]
+    33/51: $9\found[0:0]
+    34/51: $9\c[4:0]
+    35/51: $8\found[0:0]
+    36/51: $8\c[4:0]
+    37/51: $7\found[0:0]
+    38/51: $7\c[4:0]
+    39/51: $6\found[0:0]
+    40/51: $6\c[4:0]
+    41/51: $5\found[0:0]
+    42/51: $5\c[4:0]
+    43/51: $4\found[0:0]
+    44/51: $4\c[4:0]
+    45/51: $3\found[0:0]
+    46/51: $3\c[4:0]
+    47/51: $2\found[0:0]
+    48/51: $2\c[4:0]
+    49/51: $1\c[4:0]
+    50/51: $1\found[0:0]
+    51/51: $1\i[31:0]
+Creating decoders for process `$paramod\align_smaller\W=s32'00000000000000000000000000011011.$proc$align_smaller.v:16$440'.
+     1/40: $30\s_reg[0:0]
+     2/40: $29\s_reg[0:0]
+     3/40: $28\s_reg[0:0]
+     4/40: $27\s_reg[0:0]
+     5/40: $26\s_reg[0:0]
+     6/40: $25\s_reg[0:0]
+     7/40: $24\s_reg[0:0]
+     8/40: $23\s_reg[0:0]
+     9/40: $22\s_reg[0:0]
+    10/40: $21\s_reg[0:0]
+    11/40: $20\s_reg[0:0]
+    12/40: $19\s_reg[0:0]
+    13/40: $18\s_reg[0:0]
+    14/40: $17\s_reg[0:0]
+    15/40: $16\s_reg[0:0]
+    16/40: $15\s_reg[0:0]
+    17/40: $14\s_reg[0:0]
+    18/40: $13\s_reg[0:0]
+    19/40: $12\s_reg[0:0]
+    20/40: $11\s_reg[0:0]
+    21/40: $10\s_reg[0:0]
+    22/40: $9\s_reg[0:0]
+    23/40: $8\s_reg[0:0]
+    24/40: $7\s_reg[0:0]
+    25/40: $6\s_reg[0:0]
+    26/40: $5\s_reg[0:0]
+    27/40: $4\s_reg[0:0]
+    28/40: $3\i[31:0]
+    29/40: $3\s_reg[0:0]
+    30/40: $3\r_reg[0:0]
+    31/40: $2\i[31:0]
+    32/40: $2\s_reg[0:0]
+    33/40: $2\r_reg[0:0]
+    34/40: $2\g_reg[0:0]
+    35/40: $2\shifted[26:0]
+    36/40: $1\shifted[26:0]
+    37/40: $1\s_reg[0:0]
+    38/40: $1\r_reg[0:0]
+    39/40: $1\g_reg[0:0]
+    40/40: $1\i[31:0]
+Creating decoders for process `\fp_add.$proc$fp_add.v:194$28'.
+     1/1: $0\r_out[31:0]
+Creating decoders for process `\fp_add.$proc$fp_add.v:156$26'.
+     1/7: $0\r3_is_zero[0:0]
+     2/7: $0\r3_sign[0:0]
+     3/7: $0\r3_E[8:0]
+     4/7: $0\r3_S[0:0]
+     5/7: $0\r3_R[0:0]
+     6/7: $0\r3_G[0:0]
+     7/7: $0\r3_mant24[23:0]
+Creating decoders for process `\fp_add.$proc$fp_add.v:90$22'.
+     1/6: $0\r2_E_big[8:0]
+     2/6: $0\r2_sign_big[0:0]
+     3/6: $0\r2_eff_sub[0:0]
+     4/6: $0\r2_sticky[0:0]
+     5/6: $0\r2_Y_aligned[26:0]
+     6/6: $0\r2_X_pre[26:0]
+Creating decoders for process `\fp_add.$proc$fp_add.v:15$1'.
+     1/3: $0\v3[0:0]
+     2/3: $0\v2[0:0]
+     3/3: $0\v1[0:0]
+
+10.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\lzc24.\c' from process `\lzc24.$proc$normalize.v:97$204'.
+Latch inferred for signal `\lzc24.\i' from process `\lzc24.$proc$normalize.v:97$204': $auto$proc_dlatch.cc:432:proc_dlatch$1250
+Latch inferred for signal `\lzc24.\found' from process `\lzc24.$proc$normalize.v:97$204': $auto$proc_dlatch.cc:432:proc_dlatch$1259
+No latch inferred for signal `$paramod\align_smaller\W=s32'00000000000000000000000000011011.\shifted' from process `$paramod\align_smaller\W=s32'00000000000000000000000000011011.$proc$align_smaller.v:16$440'.
+No latch inferred for signal `$paramod\align_smaller\W=s32'00000000000000000000000000011011.\g_reg' from process `$paramod\align_smaller\W=s32'00000000000000000000000000011011.$proc$align_smaller.v:16$440'.
+No latch inferred for signal `$paramod\align_smaller\W=s32'00000000000000000000000000011011.\r_reg' from process `$paramod\align_smaller\W=s32'00000000000000000000000000011011.$proc$align_smaller.v:16$440'.
+No latch inferred for signal `$paramod\align_smaller\W=s32'00000000000000000000000000011011.\s_reg' from process `$paramod\align_smaller\W=s32'00000000000000000000000000011011.$proc$align_smaller.v:16$440'.
+Latch inferred for signal `$paramod\align_smaller\W=s32'00000000000000000000000000011011.\i' from process `$paramod\align_smaller\W=s32'00000000000000000000000000011011.$proc$align_smaller.v:16$440': $auto$proc_dlatch.cc:432:proc_dlatch$1262
+
+10.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\fp_add.\r_out' using process `\fp_add.$proc$fp_add.v:194$28'.
+  created $adff cell `$procdff$1321' with positive edge clock and positive level reset.
+Creating register for signal `\fp_add.\r3_mant24' using process `\fp_add.$proc$fp_add.v:156$26'.
+  created $adff cell `$procdff$1326' with positive edge clock and positive level reset.
+Creating register for signal `\fp_add.\r3_G' using process `\fp_add.$proc$fp_add.v:156$26'.
+  created $adff cell `$procdff$1331' with positive edge clock and positive level reset.
+Creating register for signal `\fp_add.\r3_R' using process `\fp_add.$proc$fp_add.v:156$26'.
+  created $adff cell `$procdff$1336' with positive edge clock and positive level reset.
+Creating register for signal `\fp_add.\r3_S' using process `\fp_add.$proc$fp_add.v:156$26'.
+  created $adff cell `$procdff$1341' with positive edge clock and positive level reset.
+Creating register for signal `\fp_add.\r3_sign' using process `\fp_add.$proc$fp_add.v:156$26'.
+  created $adff cell `$procdff$1346' with positive edge clock and positive level reset.
+Creating register for signal `\fp_add.\r3_is_zero' using process `\fp_add.$proc$fp_add.v:156$26'.
+  created $adff cell `$procdff$1351' with positive edge clock and positive level reset.
+Creating register for signal `\fp_add.\r3_E' using process `\fp_add.$proc$fp_add.v:156$26'.
+  created $adff cell `$procdff$1356' with positive edge clock and positive level reset.
+Creating register for signal `\fp_add.\r2_X_pre' using process `\fp_add.$proc$fp_add.v:90$22'.
+  created $adff cell `$procdff$1361' with positive edge clock and positive level reset.
+Creating register for signal `\fp_add.\r2_Y_aligned' using process `\fp_add.$proc$fp_add.v:90$22'.
+  created $adff cell `$procdff$1366' with positive edge clock and positive level reset.
+Creating register for signal `\fp_add.\r2_sticky' using process `\fp_add.$proc$fp_add.v:90$22'.
+  created $adff cell `$procdff$1371' with positive edge clock and positive level reset.
+Creating register for signal `\fp_add.\r2_eff_sub' using process `\fp_add.$proc$fp_add.v:90$22'.
+  created $adff cell `$procdff$1376' with positive edge clock and positive level reset.
+Creating register for signal `\fp_add.\r2_sign_big' using process `\fp_add.$proc$fp_add.v:90$22'.
+  created $adff cell `$procdff$1381' with positive edge clock and positive level reset.
+Creating register for signal `\fp_add.\r2_E_big' using process `\fp_add.$proc$fp_add.v:90$22'.
+  created $adff cell `$procdff$1386' with positive edge clock and positive level reset.
+Creating register for signal `\fp_add.\v1' using process `\fp_add.$proc$fp_add.v:15$1'.
+  created $adff cell `$procdff$1391' with positive edge clock and positive level reset.
+Creating register for signal `\fp_add.\v2' using process `\fp_add.$proc$fp_add.v:15$1'.
+  created $adff cell `$procdff$1396' with positive edge clock and positive level reset.
+Creating register for signal `\fp_add.\v3' using process `\fp_add.$proc$fp_add.v:15$1'.
+  created $adff cell `$procdff$1401' with positive edge clock and positive level reset.
+
+10.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+10.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 25 empty switches in `\lzc24.$proc$normalize.v:97$204'.
+Removing empty process `lzc24.$proc$normalize.v:97$204'.
+Found and cleaned up 31 empty switches in `$paramod\align_smaller\W=s32'00000000000000000000000000011011.$proc$align_smaller.v:16$440'.
+Removing empty process `$paramod\align_smaller\W=s32'00000000000000000000000000011011.$proc$align_smaller.v:16$440'.
+Removing empty process `fp_add.$proc$fp_add.v:194$28'.
+Removing empty process `fp_add.$proc$fp_add.v:156$26'.
+Removing empty process `fp_add.$proc$fp_add.v:90$22'.
+Removing empty process `fp_add.$proc$fp_add.v:15$1'.
+Cleaned up 56 empty switches.
+
+10.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module eight_bit_cla_adder.
+Optimizing module lzc24.
+<suppressed ~34 debug messages>
+Optimizing module fp_normalize27.
+<suppressed ~1 debug messages>
+Optimizing module second_level_lookahead.
+Optimizing module unpack32.
+<suppressed ~4 debug messages>
+Optimizing module round_pack.
+Optimizing module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+<suppressed ~24 debug messages>
+Optimizing module fp_add.
+<suppressed ~36 debug messages>
+
+10.3. Executing OPT_EXPR pass (perform const folding).
+Optimizing module eight_bit_cla_adder.
+Optimizing module lzc24.
+Optimizing module fp_normalize27.
+Optimizing module second_level_lookahead.
+Optimizing module unpack32.
+Optimizing module round_pack.
+Optimizing module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+Optimizing module fp_add.
+
+10.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \eight_bit_cla_adder..
+Finding unused cells or wires in module \lzc24..
+Finding unused cells or wires in module \fp_normalize27..
+Finding unused cells or wires in module \second_level_lookahead..
+Finding unused cells or wires in module \unpack32..
+Finding unused cells or wires in module \round_pack..
+Finding unused cells or wires in module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+Finding unused cells or wires in module \fp_add..
+Removed 41 unused cells and 578 unused wires.
+<suppressed ~53 debug messages>
+
+10.5. Executing CHECK pass (checking for obvious problems).
+Checking module $paramod\align_smaller\W=s32'00000000000000000000000000011011...
+Checking module eight_bit_cla_adder...
+Checking module fp_add...
+Checking module fp_normalize27...
+Checking module lzc24...
+Checking module round_pack...
+Checking module second_level_lookahead...
+Checking module unpack32...
+Found and reported 0 problems.
+
+10.6. Executing OPT pass (performing simple optimizations).
+
+10.6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+Optimizing module eight_bit_cla_adder.
+Optimizing module fp_add.
+Optimizing module fp_normalize27.
+Optimizing module lzc24.
+Optimizing module round_pack.
+Optimizing module second_level_lookahead.
+Optimizing module unpack32.
+
+10.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\align_smaller\W=s32'00000000000000000000000000011011'.
+<suppressed ~81 debug messages>
+Finding identical cells in module `\eight_bit_cla_adder'.
+<suppressed ~168 debug messages>
+Finding identical cells in module `\fp_add'.
+Finding identical cells in module `\fp_normalize27'.
+Finding identical cells in module `\lzc24'.
+Finding identical cells in module `\round_pack'.
+Finding identical cells in module `\second_level_lookahead'.
+<suppressed ~12 debug messages>
+Finding identical cells in module `\unpack32'.
+<suppressed ~3 debug messages>
+Removed a total of 88 cells.
+
+10.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 1/2 on $mux $procmux$1191.
+    dead port 1/2 on $mux $procmux$1194.
+    dead port 1/2 on $mux $procmux$1200.
+    dead port 1/2 on $mux $procmux$1203.
+    dead port 1/2 on $mux $procmux$1215.
+    dead port 1/2 on $mux $procmux$1221.
+    dead port 1/2 on $mux $procmux$1227.
+    dead port 1/2 on $mux $procmux$1233.
+    dead port 2/2 on $mux $procmux$858.
+    dead port 1/2 on $mux $procmux$861.
+    dead port 1/2 on $mux $procmux$864.
+Running muxtree optimizer on module \eight_bit_cla_adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \fp_add..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \fp_normalize27..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+      Replacing known input bits on port A of cell $ternary$normalize.v:33$190: \sum27 -> { 1'0 \sum27 [25:0] }
+      Replacing known input bits on port B of cell $ternary$normalize.v:33$190: { 1'0 \sum27 [26:1] } -> { 2'01 \sum27 [25:1] }
+  Analyzing evaluation results.
+Running muxtree optimizer on module \lzc24..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 1/2 on $mux $procmux$568.
+    dead port 1/2 on $mux $procmux$580.
+    dead port 1/2 on $mux $procmux$592.
+    dead port 1/2 on $mux $procmux$604.
+    dead port 1/2 on $mux $procmux$616.
+    dead port 1/2 on $mux $procmux$628.
+    dead port 1/2 on $mux $procmux$640.
+    dead port 1/2 on $mux $procmux$652.
+    dead port 1/2 on $mux $procmux$664.
+    dead port 1/2 on $mux $procmux$676.
+    dead port 1/2 on $mux $procmux$688.
+    dead port 1/2 on $mux $procmux$700.
+    dead port 1/2 on $mux $procmux$712.
+    dead port 1/2 on $mux $procmux$724.
+    dead port 1/2 on $mux $procmux$736.
+    dead port 1/2 on $mux $procmux$748.
+    dead port 1/2 on $mux $procmux$760.
+    dead port 1/2 on $mux $procmux$772.
+    dead port 1/2 on $mux $procmux$784.
+    dead port 1/2 on $mux $procmux$796.
+    dead port 1/2 on $mux $procmux$808.
+    dead port 1/2 on $mux $procmux$820.
+    dead port 1/2 on $mux $procmux$832.
+    dead port 1/2 on $mux $procmux$843.
+Running muxtree optimizer on module \round_pack..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \second_level_lookahead..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \unpack32..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 35 multiplexer ports.
+<suppressed ~295 debug messages>
+
+10.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+  Optimizing cells in module \eight_bit_cla_adder.
+  Optimizing cells in module \fp_add.
+  Optimizing cells in module \fp_normalize27.
+  Optimizing cells in module \lzc24.
+  Optimizing cells in module \round_pack.
+  Optimizing cells in module \second_level_lookahead.
+  Optimizing cells in module \unpack32.
+Performed a total of 0 changes.
+
+10.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\align_smaller\W=s32'00000000000000000000000000011011'.
+Finding identical cells in module `\eight_bit_cla_adder'.
+Finding identical cells in module `\fp_add'.
+Finding identical cells in module `\fp_normalize27'.
+Finding identical cells in module `\lzc24'.
+Finding identical cells in module `\round_pack'.
+Finding identical cells in module `\second_level_lookahead'.
+Finding identical cells in module `\unpack32'.
+Removed a total of 0 cells.
+
+10.6.6. Executing OPT_DFF pass (perform DFF optimizations).
+Setting constant 0-bit at position 0 on $procdff$1361 ($adff) from module fp_add.
+Setting constant 0-bit at position 1 on $procdff$1361 ($adff) from module fp_add.
+Setting constant 0-bit at position 26 on $procdff$1361 ($adff) from module fp_add.
+
+10.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+Finding unused cells or wires in module \eight_bit_cla_adder..
+Finding unused cells or wires in module \fp_add..
+Finding unused cells or wires in module \fp_normalize27..
+Finding unused cells or wires in module \lzc24..
+Finding unused cells or wires in module \round_pack..
+Finding unused cells or wires in module \second_level_lookahead..
+Finding unused cells or wires in module \unpack32..
+Removed 0 unused cells and 123 unused wires.
+<suppressed ~5 debug messages>
+
+10.6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+Optimizing module eight_bit_cla_adder.
+Optimizing module fp_add.
+Optimizing module fp_normalize27.
+Optimizing module lzc24.
+Optimizing module round_pack.
+Optimizing module second_level_lookahead.
+Optimizing module unpack32.
+
+10.6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+10.6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \eight_bit_cla_adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \fp_add..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \fp_normalize27..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \lzc24..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \round_pack..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \second_level_lookahead..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \unpack32..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~260 debug messages>
+
+10.6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+  Optimizing cells in module \eight_bit_cla_adder.
+  Optimizing cells in module \fp_add.
+  Optimizing cells in module \fp_normalize27.
+  Optimizing cells in module \lzc24.
+  Optimizing cells in module \round_pack.
+  Optimizing cells in module \second_level_lookahead.
+  Optimizing cells in module \unpack32.
+Performed a total of 0 changes.
+
+10.6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\align_smaller\W=s32'00000000000000000000000000011011'.
+Finding identical cells in module `\eight_bit_cla_adder'.
+Finding identical cells in module `\fp_add'.
+Finding identical cells in module `\fp_normalize27'.
+Finding identical cells in module `\lzc24'.
+Finding identical cells in module `\round_pack'.
+Finding identical cells in module `\second_level_lookahead'.
+Finding identical cells in module `\unpack32'.
+Removed a total of 0 cells.
+
+10.6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+Finding unused cells or wires in module \eight_bit_cla_adder..
+Finding unused cells or wires in module \fp_add..
+Finding unused cells or wires in module \fp_normalize27..
+Finding unused cells or wires in module \lzc24..
+Finding unused cells or wires in module \round_pack..
+Finding unused cells or wires in module \second_level_lookahead..
+Finding unused cells or wires in module \unpack32..
+
+10.6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+Optimizing module eight_bit_cla_adder.
+Optimizing module fp_add.
+Optimizing module fp_normalize27.
+Optimizing module lzc24.
+Optimizing module round_pack.
+Optimizing module second_level_lookahead.
+Optimizing module unpack32.
+
+10.6.16. Finished fast OPT passes. (There is nothing left to do.)
+
+10.7. Executing FSM pass (extract and optimize FSM).
+
+10.7.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+10.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+10.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+10.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+Finding unused cells or wires in module \eight_bit_cla_adder..
+Finding unused cells or wires in module \fp_add..
+Finding unused cells or wires in module \fp_normalize27..
+Finding unused cells or wires in module \lzc24..
+Finding unused cells or wires in module \round_pack..
+Finding unused cells or wires in module \second_level_lookahead..
+Finding unused cells or wires in module \unpack32..
+
+10.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+10.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+10.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+10.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+10.8. Executing OPT pass (performing simple optimizations).
+
+10.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+Optimizing module eight_bit_cla_adder.
+Optimizing module fp_add.
+Optimizing module fp_normalize27.
+Optimizing module lzc24.
+Optimizing module round_pack.
+Optimizing module second_level_lookahead.
+Optimizing module unpack32.
+
+10.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\align_smaller\W=s32'00000000000000000000000000011011'.
+Finding identical cells in module `\eight_bit_cla_adder'.
+Finding identical cells in module `\fp_add'.
+Finding identical cells in module `\fp_normalize27'.
+Finding identical cells in module `\lzc24'.
+Finding identical cells in module `\round_pack'.
+Finding identical cells in module `\second_level_lookahead'.
+Finding identical cells in module `\unpack32'.
+Removed a total of 0 cells.
+
+10.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \eight_bit_cla_adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \fp_add..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \fp_normalize27..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \lzc24..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \round_pack..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \second_level_lookahead..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \unpack32..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~260 debug messages>
+
+10.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+  Optimizing cells in module \eight_bit_cla_adder.
+  Optimizing cells in module \fp_add.
+  Optimizing cells in module \fp_normalize27.
+  Optimizing cells in module \lzc24.
+  Optimizing cells in module \round_pack.
+  Optimizing cells in module \second_level_lookahead.
+  Optimizing cells in module \unpack32.
+Performed a total of 0 changes.
+
+10.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\align_smaller\W=s32'00000000000000000000000000011011'.
+Finding identical cells in module `\eight_bit_cla_adder'.
+Finding identical cells in module `\fp_add'.
+Finding identical cells in module `\fp_normalize27'.
+Finding identical cells in module `\lzc24'.
+Finding identical cells in module `\round_pack'.
+Finding identical cells in module `\second_level_lookahead'.
+Finding identical cells in module `\unpack32'.
+Removed a total of 0 cells.
+
+10.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+Finding unused cells or wires in module \eight_bit_cla_adder..
+Finding unused cells or wires in module \fp_add..
+Finding unused cells or wires in module \fp_normalize27..
+Finding unused cells or wires in module \lzc24..
+Finding unused cells or wires in module \round_pack..
+Finding unused cells or wires in module \second_level_lookahead..
+Finding unused cells or wires in module \unpack32..
+
+10.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+Optimizing module eight_bit_cla_adder.
+Optimizing module fp_add.
+Optimizing module fp_normalize27.
+Optimizing module lzc24.
+Optimizing module round_pack.
+Optimizing module second_level_lookahead.
+Optimizing module unpack32.
+
+10.8.9. Finished fast OPT passes. (There is nothing left to do.)
+
+10.9. Executing WREDUCE pass (reducing word size of cells).
+Removed top 3 bits (of 8) from port B of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$ge$align_smaller.v:29$442 ($ge).
+Removed top 31 bits (of 32) from port B of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$sub$align_smaller.v:43$471 ($sub).
+Removed top 23 bits (of 32) from port Y of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$sub$align_smaller.v:43$471 ($sub).
+Removed top 23 bits (of 32) from port B of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$shiftx$align_smaller.v:43$472 ($shiftx).
+Removed top 31 bits (of 32) from port B of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$gt$align_smaller.v:46$473 ($gt).
+Removed top 30 bits (of 32) from port B of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$sub$align_smaller.v:47$474 ($sub).
+Removed top 23 bits (of 32) from port Y of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$sub$align_smaller.v:47$474 ($sub).
+Removed top 23 bits (of 32) from port B of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$shiftx$align_smaller.v:47$475 ($shiftx).
+Removed top 30 bits (of 32) from port B of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$gt$align_smaller.v:53$476 ($gt).
+Removed top 31 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$478 ($lt).
+Removed top 31 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$481 ($lt).
+Removed top 30 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$484 ($lt).
+Removed top 30 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$487 ($lt).
+Removed top 29 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$490 ($lt).
+Removed top 29 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$493 ($lt).
+Removed top 29 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$496 ($lt).
+Removed top 29 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$499 ($lt).
+Removed top 28 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$502 ($lt).
+Removed top 28 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$505 ($lt).
+Removed top 28 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$508 ($lt).
+Removed top 28 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$511 ($lt).
+Removed top 28 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$514 ($lt).
+Removed top 28 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$517 ($lt).
+Removed top 28 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$520 ($lt).
+Removed top 28 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$523 ($lt).
+Removed top 27 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$526 ($lt).
+Removed top 27 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$529 ($lt).
+Removed top 27 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$532 ($lt).
+Removed top 27 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$535 ($lt).
+Removed top 27 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$538 ($lt).
+Removed top 27 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$541 ($lt).
+Removed top 27 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$544 ($lt).
+Removed top 27 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$547 ($lt).
+Removed top 27 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$550 ($lt).
+Removed top 27 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$553 ($lt).
+Removed top 27 bits (of 32) from port A of cell $paramod\align_smaller\W=s32'00000000000000000000000000011011.$lt$align_smaller.v:55$556 ($lt).
+Removed top 1 bits (of 9) from mux cell fp_add.$ternary$fp_add.v:47$4 ($mux).
+Removed top 1 bits (of 9) from mux cell fp_add.$ternary$fp_add.v:48$6 ($mux).
+Removed top 1 bits (of 9) from port A of cell fp_add.$gt$fp_add.v:51$7 ($gt).
+Removed top 1 bits (of 9) from port B of cell fp_add.$gt$fp_add.v:51$7 ($gt).
+Removed top 1 bits (of 9) from port A of cell fp_add.$lt$fp_add.v:52$8 ($lt).
+Removed top 1 bits (of 9) from port B of cell fp_add.$lt$fp_add.v:52$8 ($lt).
+Removed top 1 bits (of 9) from mux cell fp_add.$ternary$fp_add.v:57$14 ($mux).
+Removed top 1 bits (of 9) from mux cell fp_add.$ternary$fp_add.v:58$15 ($mux).
+Removed top 1 bits (of 9) from port A of cell fp_add.$sub$fp_add.v:63$18 ($sub).
+Removed top 1 bits (of 9) from port B of cell fp_add.$sub$fp_add.v:63$18 ($sub).
+Removed top 4 bits (of 9) from port B of cell fp_add.$gt$fp_add.v:64$19 ($gt).
+Removed top 5 bits (of 32) from port A of cell fp_add.$not$fp_add.v:113$24 ($not).
+Removed top 1 bits (of 9) from FF cell fp_add.$procdff$1386 ($adff).
+Removed top 1 bits (of 9) from wire fp_add.r2_E_big.
+Removed top 1 bits (of 27) from wire fp_add.r2_X_pre.
+Removed top 1 bits (of 9) from wire fp_add.s1_E_big.
+Removed top 1 bits (of 9) from wire fp_add.s1_E_small.
+Removed top 1 bits (of 9) from wire fp_add.s1_Eeff_a.
+Removed top 1 bits (of 9) from wire fp_add.s1_Eeff_b.
+Removed top 1 bits (of 27) from wire fp_add.s1_X_pre.
+Removed top 1 bits (of 27) from wire fp_add.s1_Y_pre.
+Removed top 3 bits (of 24) from wire fp_add.s1_sig_b.
+Removed top 1 bits (of 27) from mux cell fp_normalize27.$ternary$normalize.v:33$190 ($mux).
+Removed top 8 bits (of 9) from port B of cell fp_normalize27.$add$normalize.v:36$191 ($add).
+Removed top 4 bits (of 9) from port B of cell fp_normalize27.$sub$normalize.v:59$199 ($sub).
+Removed top 1 bits (of 27) from mux cell fp_normalize27.$ternary$normalize.v:67$200 ($mux).
+Removed top 1 bits (of 27) from mux cell fp_normalize27.$ternary$normalize.v:58$198 ($mux).
+Removed top 1 bits (of 27) from port Y of cell fp_normalize27.$shl$normalize.v:58$197 ($shl).
+Removed top 1 bits (of 27) from wire fp_normalize27.$shl$normalize.v:58$197_Y.
+Removed top 1 bits (of 27) from wire fp_normalize27.add_lane.
+Removed top 1 bits (of 27) from wire fp_normalize27.lane_sel.
+Removed top 1 bits (of 27) from wire fp_normalize27.sub_lane.
+Removed top 4 bits (of 5) from mux cell lzc24.$procmux$829 ($mux).
+Removed top 4 bits (of 5) from wire lzc24.$3\c[4:0].
+Removed top 1 bits (of 25) from port A of cell round_pack.$add$round_pack.v:27$141 ($add).
+Removed top 24 bits (of 25) from port B of cell round_pack.$add$round_pack.v:27$141 ($add).
+Removed top 1 bits (of 24) from mux cell round_pack.$ternary$round_pack.v:33$142 ($mux).
+Removed top 8 bits (of 9) from port B of cell round_pack.$add$round_pack.v:36$143 ($add).
+Removed top 1 bits (of 9) from port B of cell round_pack.$ge$round_pack.v:40$145 ($ge).
+Removed top 8 bits (of 9) from port B of cell round_pack.$le$round_pack.v:44$146 ($le).
+
+10.10. Executing PEEPOPT pass (run peephole optimizers).
+
+10.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+Finding unused cells or wires in module \eight_bit_cla_adder..
+Finding unused cells or wires in module \fp_add..
+Finding unused cells or wires in module \fp_normalize27..
+Finding unused cells or wires in module \lzc24..
+Finding unused cells or wires in module \round_pack..
+Finding unused cells or wires in module \second_level_lookahead..
+Finding unused cells or wires in module \unpack32..
+Removed 0 unused cells and 13 unused wires.
+<suppressed ~3 debug messages>
+
+10.12. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module $paramod\align_smaller\W=s32'00000000000000000000000000011011:
+  creating $macc model for $sub$align_smaller.v:43$471 ($sub).
+  creating $macc model for $sub$align_smaller.v:47$474 ($sub).
+  creating $alu model for $macc $sub$align_smaller.v:47$474.
+  creating $alu model for $macc $sub$align_smaller.v:43$471.
+  creating $alu model for $ge$align_smaller.v:29$442 ($ge): new $alu
+  creating $alu model for $gt$align_smaller.v:46$473 ($gt): merged with $sub$align_smaller.v:43$471.
+  creating $alu model for $gt$align_smaller.v:53$476 ($gt): merged with $sub$align_smaller.v:47$474.
+  creating $alu model for $lt$align_smaller.v:55$478 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$481 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$484 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$487 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$490 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$493 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$496 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$499 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$502 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$505 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$508 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$511 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$514 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$517 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$520 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$523 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$526 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$529 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$532 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$535 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$538 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$541 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$544 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$547 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$550 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$553 ($lt): new $alu
+  creating $alu model for $lt$align_smaller.v:55$556 ($lt): new $alu
+  creating $alu cell for $lt$align_smaller.v:55$556: $auto$alumacc.cc:512:replace_alu$1445
+  creating $alu cell for $lt$align_smaller.v:55$553: $auto$alumacc.cc:512:replace_alu$1450
+  creating $alu cell for $lt$align_smaller.v:55$550: $auto$alumacc.cc:512:replace_alu$1455
+  creating $alu cell for $lt$align_smaller.v:55$547: $auto$alumacc.cc:512:replace_alu$1460
+  creating $alu cell for $lt$align_smaller.v:55$544: $auto$alumacc.cc:512:replace_alu$1465
+  creating $alu cell for $lt$align_smaller.v:55$541: $auto$alumacc.cc:512:replace_alu$1470
+  creating $alu cell for $lt$align_smaller.v:55$538: $auto$alumacc.cc:512:replace_alu$1475
+  creating $alu cell for $lt$align_smaller.v:55$535: $auto$alumacc.cc:512:replace_alu$1480
+  creating $alu cell for $lt$align_smaller.v:55$532: $auto$alumacc.cc:512:replace_alu$1485
+  creating $alu cell for $lt$align_smaller.v:55$529: $auto$alumacc.cc:512:replace_alu$1490
+  creating $alu cell for $lt$align_smaller.v:55$526: $auto$alumacc.cc:512:replace_alu$1495
+  creating $alu cell for $lt$align_smaller.v:55$523: $auto$alumacc.cc:512:replace_alu$1500
+  creating $alu cell for $lt$align_smaller.v:55$520: $auto$alumacc.cc:512:replace_alu$1505
+  creating $alu cell for $lt$align_smaller.v:55$517: $auto$alumacc.cc:512:replace_alu$1510
+  creating $alu cell for $lt$align_smaller.v:55$514: $auto$alumacc.cc:512:replace_alu$1515
+  creating $alu cell for $lt$align_smaller.v:55$511: $auto$alumacc.cc:512:replace_alu$1520
+  creating $alu cell for $lt$align_smaller.v:55$508: $auto$alumacc.cc:512:replace_alu$1525
+  creating $alu cell for $lt$align_smaller.v:55$505: $auto$alumacc.cc:512:replace_alu$1530
+  creating $alu cell for $lt$align_smaller.v:55$502: $auto$alumacc.cc:512:replace_alu$1535
+  creating $alu cell for $lt$align_smaller.v:55$499: $auto$alumacc.cc:512:replace_alu$1540
+  creating $alu cell for $lt$align_smaller.v:55$496: $auto$alumacc.cc:512:replace_alu$1545
+  creating $alu cell for $lt$align_smaller.v:55$493: $auto$alumacc.cc:512:replace_alu$1550
+  creating $alu cell for $lt$align_smaller.v:55$490: $auto$alumacc.cc:512:replace_alu$1555
+  creating $alu cell for $lt$align_smaller.v:55$487: $auto$alumacc.cc:512:replace_alu$1560
+  creating $alu cell for $lt$align_smaller.v:55$484: $auto$alumacc.cc:512:replace_alu$1565
+  creating $alu cell for $lt$align_smaller.v:55$481: $auto$alumacc.cc:512:replace_alu$1570
+  creating $alu cell for $lt$align_smaller.v:55$478: $auto$alumacc.cc:512:replace_alu$1575
+  creating $alu cell for $ge$align_smaller.v:29$442: $auto$alumacc.cc:512:replace_alu$1580
+  creating $alu cell for $sub$align_smaller.v:43$471, $gt$align_smaller.v:46$473: $auto$alumacc.cc:512:replace_alu$1593
+  creating $alu cell for $sub$align_smaller.v:47$474, $gt$align_smaller.v:53$476: $auto$alumacc.cc:512:replace_alu$1604
+  created 30 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module eight_bit_cla_adder:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module fp_add:
+  creating $macc model for $sub$fp_add.v:63$18 ($sub).
+  creating $alu model for $macc $sub$fp_add.v:63$18.
+  creating $alu model for $ge$fp_add.v:53$9 ($ge): new $alu
+  creating $alu model for $gt$fp_add.v:51$7 ($gt): new $alu
+  creating $alu model for $gt$fp_add.v:64$19 ($gt): new $alu
+  creating $alu model for $lt$fp_add.v:52$8 ($lt): merged with $gt$fp_add.v:51$7.
+  creating $alu cell for $gt$fp_add.v:64$19: $auto$alumacc.cc:512:replace_alu$1618
+  creating $alu cell for $gt$fp_add.v:51$7, $lt$fp_add.v:52$8: $auto$alumacc.cc:512:replace_alu$1629
+  creating $alu cell for $ge$fp_add.v:53$9: $auto$alumacc.cc:512:replace_alu$1640
+  creating $alu cell for $sub$fp_add.v:63$18: $auto$alumacc.cc:512:replace_alu$1653
+  created 4 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module fp_normalize27:
+  creating $macc model for $add$normalize.v:36$191 ($add).
+  creating $macc model for $sub$normalize.v:59$199 ($sub).
+  creating $alu model for $macc $sub$normalize.v:59$199.
+  creating $alu model for $macc $add$normalize.v:36$191.
+  creating $alu model for $lt$normalize.v:55$195 ($lt): new $alu
+  creating $alu cell for $lt$normalize.v:55$195: $auto$alumacc.cc:512:replace_alu$1657
+  creating $alu cell for $add$normalize.v:36$191: $auto$alumacc.cc:512:replace_alu$1662
+  creating $alu cell for $sub$normalize.v:59$199: $auto$alumacc.cc:512:replace_alu$1665
+  created 3 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module lzc24:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module round_pack:
+  creating $macc model for $add$round_pack.v:27$141 ($add).
+  creating $macc model for $add$round_pack.v:36$143 ($add).
+  creating $alu model for $macc $add$round_pack.v:36$143.
+  creating $alu model for $macc $add$round_pack.v:27$141.
+  creating $alu model for $ge$round_pack.v:40$145 ($ge): new $alu
+  creating $alu model for $le$round_pack.v:44$146 ($le): new $alu
+  creating $alu cell for $le$round_pack.v:44$146: $auto$alumacc.cc:512:replace_alu$1670
+  creating $alu cell for $ge$round_pack.v:40$145: $auto$alumacc.cc:512:replace_alu$1679
+  creating $alu cell for $add$round_pack.v:27$141: $auto$alumacc.cc:512:replace_alu$1692
+  creating $alu cell for $add$round_pack.v:36$143: $auto$alumacc.cc:512:replace_alu$1695
+  created 4 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module second_level_lookahead:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module unpack32:
+  created 0 $alu and 0 $macc cells.
+
+10.13. Executing SHARE pass (SAT-based resource sharing).
+
+10.14. Executing OPT pass (performing simple optimizations).
+
+10.14.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+<suppressed ~55 debug messages>
+Optimizing module eight_bit_cla_adder.
+Optimizing module fp_add.
+<suppressed ~3 debug messages>
+Optimizing module fp_normalize27.
+<suppressed ~1 debug messages>
+Optimizing module lzc24.
+Optimizing module round_pack.
+<suppressed ~3 debug messages>
+Optimizing module second_level_lookahead.
+Optimizing module unpack32.
+
+10.14.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\align_smaller\W=s32'00000000000000000000000000011011'.
+Finding identical cells in module `\eight_bit_cla_adder'.
+Finding identical cells in module `\fp_add'.
+Finding identical cells in module `\fp_normalize27'.
+Finding identical cells in module `\lzc24'.
+Finding identical cells in module `\round_pack'.
+Finding identical cells in module `\second_level_lookahead'.
+Finding identical cells in module `\unpack32'.
+Removed a total of 0 cells.
+
+10.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \eight_bit_cla_adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \fp_add..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \fp_normalize27..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \lzc24..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \round_pack..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \second_level_lookahead..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \unpack32..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~260 debug messages>
+
+10.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+  Optimizing cells in module \eight_bit_cla_adder.
+  Optimizing cells in module \fp_add.
+  Optimizing cells in module \fp_normalize27.
+  Optimizing cells in module \lzc24.
+  Optimizing cells in module \round_pack.
+  Optimizing cells in module \second_level_lookahead.
+  Optimizing cells in module \unpack32.
+Performed a total of 0 changes.
+
+10.14.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\align_smaller\W=s32'00000000000000000000000000011011'.
+Finding identical cells in module `\eight_bit_cla_adder'.
+Finding identical cells in module `\fp_add'.
+Finding identical cells in module `\fp_normalize27'.
+Finding identical cells in module `\lzc24'.
+Finding identical cells in module `\round_pack'.
+Finding identical cells in module `\second_level_lookahead'.
+Finding identical cells in module `\unpack32'.
+Removed a total of 0 cells.
+
+10.14.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+Finding unused cells or wires in module \eight_bit_cla_adder..
+Finding unused cells or wires in module \fp_add..
+Finding unused cells or wires in module \fp_normalize27..
+Finding unused cells or wires in module \lzc24..
+Finding unused cells or wires in module \round_pack..
+Finding unused cells or wires in module \second_level_lookahead..
+Finding unused cells or wires in module \unpack32..
+Removed 32 unused cells and 74 unused wires.
+<suppressed ~37 debug messages>
+
+10.14.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+Optimizing module eight_bit_cla_adder.
+Optimizing module fp_add.
+Optimizing module fp_normalize27.
+Optimizing module lzc24.
+Optimizing module round_pack.
+Optimizing module second_level_lookahead.
+Optimizing module unpack32.
+
+10.14.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+10.14.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \eight_bit_cla_adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \fp_add..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \fp_normalize27..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \lzc24..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \round_pack..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \second_level_lookahead..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \unpack32..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~260 debug messages>
+
+10.14.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+  Optimizing cells in module \eight_bit_cla_adder.
+  Optimizing cells in module \fp_add.
+  Optimizing cells in module \fp_normalize27.
+  Optimizing cells in module \lzc24.
+  Optimizing cells in module \round_pack.
+  Optimizing cells in module \second_level_lookahead.
+  Optimizing cells in module \unpack32.
+Performed a total of 0 changes.
+
+10.14.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\align_smaller\W=s32'00000000000000000000000000011011'.
+Finding identical cells in module `\eight_bit_cla_adder'.
+Finding identical cells in module `\fp_add'.
+Finding identical cells in module `\fp_normalize27'.
+Finding identical cells in module `\lzc24'.
+Finding identical cells in module `\round_pack'.
+Finding identical cells in module `\second_level_lookahead'.
+Finding identical cells in module `\unpack32'.
+Removed a total of 0 cells.
+
+10.14.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.14.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+Finding unused cells or wires in module \eight_bit_cla_adder..
+Finding unused cells or wires in module \fp_add..
+Finding unused cells or wires in module \fp_normalize27..
+Finding unused cells or wires in module \lzc24..
+Finding unused cells or wires in module \round_pack..
+Finding unused cells or wires in module \second_level_lookahead..
+Finding unused cells or wires in module \unpack32..
+
+10.14.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+Optimizing module eight_bit_cla_adder.
+Optimizing module fp_add.
+Optimizing module fp_normalize27.
+Optimizing module lzc24.
+Optimizing module round_pack.
+Optimizing module second_level_lookahead.
+Optimizing module unpack32.
+
+10.14.16. Finished fast OPT passes. (There is nothing left to do.)
+
+10.15. Executing MEMORY pass.
+
+10.15.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+10.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+10.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+10.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+10.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+10.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+Finding unused cells or wires in module \eight_bit_cla_adder..
+Finding unused cells or wires in module \fp_add..
+Finding unused cells or wires in module \fp_normalize27..
+Finding unused cells or wires in module \lzc24..
+Finding unused cells or wires in module \round_pack..
+Finding unused cells or wires in module \second_level_lookahead..
+Finding unused cells or wires in module \unpack32..
+
+10.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+10.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+10.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+Finding unused cells or wires in module \eight_bit_cla_adder..
+Finding unused cells or wires in module \fp_add..
+Finding unused cells or wires in module \fp_normalize27..
+Finding unused cells or wires in module \lzc24..
+Finding unused cells or wires in module \round_pack..
+Finding unused cells or wires in module \second_level_lookahead..
+Finding unused cells or wires in module \unpack32..
+
+10.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+10.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+Finding unused cells or wires in module \eight_bit_cla_adder..
+Finding unused cells or wires in module \fp_add..
+Finding unused cells or wires in module \fp_normalize27..
+Finding unused cells or wires in module \lzc24..
+Finding unused cells or wires in module \round_pack..
+Finding unused cells or wires in module \second_level_lookahead..
+Finding unused cells or wires in module \unpack32..
+
+10.17. Executing OPT pass (performing simple optimizations).
+
+10.17.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+<suppressed ~92 debug messages>
+Optimizing module eight_bit_cla_adder.
+Optimizing module fp_add.
+<suppressed ~7 debug messages>
+Optimizing module fp_normalize27.
+Optimizing module lzc24.
+<suppressed ~24 debug messages>
+Optimizing module round_pack.
+Optimizing module second_level_lookahead.
+Optimizing module unpack32.
+
+10.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\align_smaller\W=s32'00000000000000000000000000011011'.
+<suppressed ~60 debug messages>
+Finding identical cells in module `\eight_bit_cla_adder'.
+Finding identical cells in module `\fp_add'.
+Finding identical cells in module `\fp_normalize27'.
+Finding identical cells in module `\lzc24'.
+Finding identical cells in module `\round_pack'.
+Finding identical cells in module `\second_level_lookahead'.
+Finding identical cells in module `\unpack32'.
+Removed a total of 20 cells.
+
+10.17.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+Finding unused cells or wires in module \eight_bit_cla_adder..
+Finding unused cells or wires in module \fp_add..
+Finding unused cells or wires in module \fp_normalize27..
+Finding unused cells or wires in module \lzc24..
+Finding unused cells or wires in module \round_pack..
+Finding unused cells or wires in module \second_level_lookahead..
+Finding unused cells or wires in module \unpack32..
+Removed 3 unused cells and 106 unused wires.
+<suppressed ~6 debug messages>
+
+10.17.5. Finished fast OPT passes.
+
+10.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+10.19. Executing OPT pass (performing simple optimizations).
+
+10.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+Optimizing module eight_bit_cla_adder.
+Optimizing module fp_add.
+Optimizing module fp_normalize27.
+Optimizing module lzc24.
+Optimizing module round_pack.
+Optimizing module second_level_lookahead.
+Optimizing module unpack32.
+
+10.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\align_smaller\W=s32'00000000000000000000000000011011'.
+Finding identical cells in module `\eight_bit_cla_adder'.
+Finding identical cells in module `\fp_add'.
+Finding identical cells in module `\fp_normalize27'.
+Finding identical cells in module `\lzc24'.
+Finding identical cells in module `\round_pack'.
+Finding identical cells in module `\second_level_lookahead'.
+Finding identical cells in module `\unpack32'.
+Removed a total of 0 cells.
+
+10.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \eight_bit_cla_adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \fp_add..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \fp_normalize27..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \lzc24..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \round_pack..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \second_level_lookahead..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \unpack32..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~134 debug messages>
+
+10.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+  Optimizing cells in module \eight_bit_cla_adder.
+  Optimizing cells in module \fp_add.
+    Consolidated identical input bits for $mux cell $ternary$fp_add.v:113$25:
+      Old ports: A={ 5'00000 \r2_Y_aligned }, B={ 5'11111 $auto$opt_expr.cc:205:group_cell_inputs$1748 }, Y=\s2_B32_eff
+      New ports: A={ 1'0 \r2_Y_aligned }, B={ 1'1 $auto$opt_expr.cc:205:group_cell_inputs$1748 }, Y=\s2_B32_eff [27:0]
+      New connections: \s2_B32_eff [31:28] = { \s2_B32_eff [27] \s2_B32_eff [27] \s2_B32_eff [27] \s2_B32_eff [27] }
+  Optimizing cells in module \fp_add.
+  Optimizing cells in module \fp_normalize27.
+  Optimizing cells in module \lzc24.
+    Consolidated identical input bits for $mux cell $procmux$817:
+      Old ports: A={ 4'0000 $3\c[4:0] }, B=5'00010, Y=$4\c[4:0]
+      New ports: A={ 1'0 $3\c[4:0] }, B=2'10, Y=$4\c[4:0] [1:0]
+      New connections: $4\c[4:0] [4:2] = 3'000
+  Optimizing cells in module \lzc24.
+    Consolidated identical input bits for $mux cell $procmux$805:
+      Old ports: A=$4\c[4:0], B=5'00011, Y=$5\c[4:0]
+      New ports: A=$4\c[4:0] [1:0], B=2'11, Y=$5\c[4:0] [1:0]
+      New connections: $5\c[4:0] [4:2] = 3'000
+  Optimizing cells in module \lzc24.
+    Consolidated identical input bits for $mux cell $procmux$793:
+      Old ports: A=$5\c[4:0], B=5'00100, Y=$6\c[4:0]
+      New ports: A={ 1'0 $5\c[4:0] [1:0] }, B=3'100, Y=$6\c[4:0] [2:0]
+      New connections: $6\c[4:0] [4:3] = 2'00
+  Optimizing cells in module \lzc24.
+    Consolidated identical input bits for $mux cell $procmux$781:
+      Old ports: A=$6\c[4:0], B=5'00101, Y=$7\c[4:0]
+      New ports: A=$6\c[4:0] [2:0], B=3'101, Y=$7\c[4:0] [2:0]
+      New connections: $7\c[4:0] [4:3] = 2'00
+  Optimizing cells in module \lzc24.
+    Consolidated identical input bits for $mux cell $procmux$769:
+      Old ports: A=$7\c[4:0], B=5'00110, Y=$8\c[4:0]
+      New ports: A=$7\c[4:0] [2:0], B=3'110, Y=$8\c[4:0] [2:0]
+      New connections: $8\c[4:0] [4:3] = 2'00
+  Optimizing cells in module \lzc24.
+    Consolidated identical input bits for $mux cell $procmux$757:
+      Old ports: A=$8\c[4:0], B=5'00111, Y=$9\c[4:0]
+      New ports: A=$8\c[4:0] [2:0], B=3'111, Y=$9\c[4:0] [2:0]
+      New connections: $9\c[4:0] [4:3] = 2'00
+  Optimizing cells in module \lzc24.
+    Consolidated identical input bits for $mux cell $procmux$745:
+      Old ports: A=$9\c[4:0], B=5'01000, Y=$10\c[4:0]
+      New ports: A={ 1'0 $9\c[4:0] [2:0] }, B=4'1000, Y=$10\c[4:0] [3:0]
+      New connections: $10\c[4:0] [4] = 1'0
+  Optimizing cells in module \lzc24.
+    Consolidated identical input bits for $mux cell $procmux$733:
+      Old ports: A=$10\c[4:0], B=5'01001, Y=$11\c[4:0]
+      New ports: A=$10\c[4:0] [3:0], B=4'1001, Y=$11\c[4:0] [3:0]
+      New connections: $11\c[4:0] [4] = 1'0
+  Optimizing cells in module \lzc24.
+    Consolidated identical input bits for $mux cell $procmux$721:
+      Old ports: A=$11\c[4:0], B=5'01010, Y=$12\c[4:0]
+      New ports: A=$11\c[4:0] [3:0], B=4'1010, Y=$12\c[4:0] [3:0]
+      New connections: $12\c[4:0] [4] = 1'0
+  Optimizing cells in module \lzc24.
+    Consolidated identical input bits for $mux cell $procmux$709:
+      Old ports: A=$12\c[4:0], B=5'01011, Y=$13\c[4:0]
+      New ports: A=$12\c[4:0] [3:0], B=4'1011, Y=$13\c[4:0] [3:0]
+      New connections: $13\c[4:0] [4] = 1'0
+  Optimizing cells in module \lzc24.
+    Consolidated identical input bits for $mux cell $procmux$697:
+      Old ports: A=$13\c[4:0], B=5'01100, Y=$14\c[4:0]
+      New ports: A=$13\c[4:0] [3:0], B=4'1100, Y=$14\c[4:0] [3:0]
+      New connections: $14\c[4:0] [4] = 1'0
+  Optimizing cells in module \lzc24.
+    Consolidated identical input bits for $mux cell $procmux$685:
+      Old ports: A=$14\c[4:0], B=5'01101, Y=$15\c[4:0]
+      New ports: A=$14\c[4:0] [3:0], B=4'1101, Y=$15\c[4:0] [3:0]
+      New connections: $15\c[4:0] [4] = 1'0
+  Optimizing cells in module \lzc24.
+    Consolidated identical input bits for $mux cell $procmux$673:
+      Old ports: A=$15\c[4:0], B=5'01110, Y=$16\c[4:0]
+      New ports: A=$15\c[4:0] [3:0], B=4'1110, Y=$16\c[4:0] [3:0]
+      New connections: $16\c[4:0] [4] = 1'0
+  Optimizing cells in module \lzc24.
+    Consolidated identical input bits for $mux cell $procmux$661:
+      Old ports: A=$16\c[4:0], B=5'01111, Y=$17\c[4:0]
+      New ports: A=$16\c[4:0] [3:0], B=4'1111, Y=$17\c[4:0] [3:0]
+      New connections: $17\c[4:0] [4] = 1'0
+  Optimizing cells in module \lzc24.
+  Optimizing cells in module \round_pack.
+  Optimizing cells in module \second_level_lookahead.
+  Optimizing cells in module \unpack32.
+    Consolidated identical input bits for $mux cell $ternary$unpack32.v:14$156:
+      Old ports: A={ 1'1 \in [22:0] }, B={ 1'0 \in [22:0] }, Y=$ternary$unpack32.v:14$156_Y
+      New ports: A=1'1, B=1'0, Y=$ternary$unpack32.v:14$156_Y [23]
+      New connections: $ternary$unpack32.v:14$156_Y [22:0] = \in [22:0]
+  Optimizing cells in module \unpack32.
+Performed a total of 16 changes.
+
+10.19.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\align_smaller\W=s32'00000000000000000000000000011011'.
+Finding identical cells in module `\eight_bit_cla_adder'.
+Finding identical cells in module `\fp_add'.
+Finding identical cells in module `\fp_normalize27'.
+Finding identical cells in module `\lzc24'.
+Finding identical cells in module `\round_pack'.
+Finding identical cells in module `\second_level_lookahead'.
+Finding identical cells in module `\unpack32'.
+Removed a total of 0 cells.
+
+10.19.6. Executing OPT_SHARE pass.
+
+10.19.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+Finding unused cells or wires in module \eight_bit_cla_adder..
+Finding unused cells or wires in module \fp_add..
+Finding unused cells or wires in module \fp_normalize27..
+Finding unused cells or wires in module \lzc24..
+Finding unused cells or wires in module \round_pack..
+Finding unused cells or wires in module \second_level_lookahead..
+Finding unused cells or wires in module \unpack32..
+
+10.19.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+Optimizing module eight_bit_cla_adder.
+Optimizing module fp_add.
+Optimizing module fp_normalize27.
+Optimizing module lzc24.
+Optimizing module round_pack.
+Optimizing module second_level_lookahead.
+Optimizing module unpack32.
+<suppressed ~1 debug messages>
+
+10.19.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+10.19.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \eight_bit_cla_adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \fp_add..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \fp_normalize27..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \lzc24..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \round_pack..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \second_level_lookahead..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \unpack32..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~133 debug messages>
+
+10.19.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+  Optimizing cells in module \eight_bit_cla_adder.
+  Optimizing cells in module \fp_add.
+  Optimizing cells in module \fp_normalize27.
+  Optimizing cells in module \lzc24.
+  Optimizing cells in module \round_pack.
+  Optimizing cells in module \second_level_lookahead.
+  Optimizing cells in module \unpack32.
+Performed a total of 0 changes.
+
+10.19.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\align_smaller\W=s32'00000000000000000000000000011011'.
+Finding identical cells in module `\eight_bit_cla_adder'.
+Finding identical cells in module `\fp_add'.
+Finding identical cells in module `\fp_normalize27'.
+Finding identical cells in module `\lzc24'.
+Finding identical cells in module `\round_pack'.
+Finding identical cells in module `\second_level_lookahead'.
+Finding identical cells in module `\unpack32'.
+Removed a total of 0 cells.
+
+10.19.14. Executing OPT_SHARE pass.
+
+10.19.15. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.19.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+Finding unused cells or wires in module \eight_bit_cla_adder..
+Finding unused cells or wires in module \fp_add..
+Finding unused cells or wires in module \fp_normalize27..
+Finding unused cells or wires in module \lzc24..
+Finding unused cells or wires in module \round_pack..
+Finding unused cells or wires in module \second_level_lookahead..
+Finding unused cells or wires in module \unpack32..
+
+10.19.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+Optimizing module eight_bit_cla_adder.
+Optimizing module fp_add.
+Optimizing module fp_normalize27.
+Optimizing module lzc24.
+Optimizing module round_pack.
+Optimizing module second_level_lookahead.
+Optimizing module unpack32.
+
+10.19.18. Finished fast OPT passes. (There is nothing left to do.)
+
+10.20. Executing TECHMAP pass (map to technology primitives).
+
+10.20.1. Executing Verilog-2005 frontend: /opt/homebrew/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/opt/homebrew/bin/../share/yosys/techmap.v' to AST representation.
+verilog frontend filename /opt/homebrew/bin/../share/yosys/techmap.v
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `\$connect'.
+Generating RTLIL representation for module `\$input_port'.
+Successfully finished Verilog frontend.
+
+10.20.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $or.
+Using template $paramod$53700bbee849b2010ad0b60a61ccd204a10e24ca\_90_alu for cells of type $alu.
+Using template $paramod$f137a8bfbd1456d75171dc760be33d0c1f0b83ab\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $reduce_and.
+Using template $paramod$cd54e322aa4265ca236096fe4bb634aaec4e39b4\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $pos.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000001001 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000001001 for cells of type $lcu.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000011001 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000011001 for cells of type $lcu.
+Using template $paramod$3fe4bdf8d597404bdd222c1fea42f692fdc77de4\_90_alu for cells of type $alu.
+Using template $paramod$b18e16801adf491a64caa0542270798e5d4ac6b6\_90_alu for cells of type $alu.
+Using template $paramod$constmap:52b53474f915a72da0d5d450d4eb5cb56b5798fc$paramod$43c501f62bf532b1f601593b1198d11ceccabe3d\_90_shift_ops_shr_shl_sshl_sshr for cells of type $shl.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000101 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000101 for cells of type $lcu.
+Using template $paramod$4ccbe221165818e15f326ddee3d1183c7924e12f\_90_alu for cells of type $alu.
+Using template $paramod$e82d3fc1811c5751348a3964470632b35a435fc7\_90_alu for cells of type $alu.
+Using template $paramod$a1bc51c02ce12ac21eb18988e83292af48ed7d72\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $adff.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000011000 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000011000 for cells of type $lcu.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000001000 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000001000 for cells of type $lcu.
+Using template $paramod$0cb8c8207ef60c40f3d931234779bbc53d5f6b86\_90_alu for cells of type $alu.
+Using template $paramod$19189243523493d505a4933d1bad417c570ea8a6\_90_alu for cells of type $alu.
+Using template $paramod$5d2e07eca6b9fbd538aff231e6f05d9604b7a77e\_90_alu for cells of type $alu.
+Using template $paramod$6a42b6fefed750f8a1c58eab59479d960557103c\_90_alu for cells of type $alu.
+Using template $paramod$4598135cf15630e609dba0dc434804e375ac5643\_90_alu for cells of type $alu.
+Using template $paramod$9fe62a4b81638d72bc060d25c78265035b9c879a\_90_alu for cells of type $alu.
+Using template $paramod$a5a8ebb2cfc80f0cacfac1e42aa531c9aa5fbb36\_90_alu for cells of type $alu.
+Using template $paramod$076c9a7a3f037230073fe14dd4865d470cb48917\_90_alu for cells of type $alu.
+Using template $paramod$d901baf1fb63991ac0a40d2e3f4807d372bb57a2\_90_alu for cells of type $alu.
+Using template $paramod$75ee2a7d1dce202ddefff1b163aa7312265b7619\_90_alu for cells of type $alu.
+Using template $paramod$a7817265ef3ab2ee43da53bbd8a90f6450d412d9\_90_alu for cells of type $alu.
+Using template $paramod$0084fe719dfe5764ea498b16710fd7fd71f6c8a6\_90_alu for cells of type $alu.
+Using template $paramod$b7d8bc51a9f2c27358a2ecf6b8f69c0b21118b89\_90_alu for cells of type $alu.
+Using template $paramod$b428551475981eb3841439c41ff02dfe9ed0c0f2\_90_alu for cells of type $alu.
+Using template $paramod$b0777dc865134c8525a4aa84de8cfa938974cad1\_90_alu for cells of type $alu.
+Using template $paramod$11081856fd082fd8b60e458299087f04f429e62c\_90_alu for cells of type $alu.
+Using template $paramod$b51307e1ab724bf92e9e9974941ccd154031df99\_90_alu for cells of type $alu.
+Using template $paramod$fabe4686810c068bfebc953fb5d9a42efc9c9f1b\_90_alu for cells of type $alu.
+Using template $paramod$constmap:c541b1a0f53eaf80ed8c0c21c8b4d7065885823b$paramod$49d681ea06dc393300e89e053fdf6293d075bc05\_90_shift_ops_shr_shl_sshl_sshr for cells of type $shr.
+Using template $paramod$constmap:66b714b737f9c263b564460e1a5a26a171e80f26$paramod$0381ed42db3d2727b7b4bc606cb43392cfe161c4\_90_shift_shiftx for cells of type $shiftx.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000100000 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000100000 for cells of type $lcu.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000011111 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000011111 for cells of type $lcu.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000011110 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000011110 for cells of type $lcu.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000011101 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000011101 for cells of type $lcu.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000011100 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000011100 for cells of type $lcu.
+No more expansions possible.
+<suppressed ~8117 debug messages>
+
+10.21. Executing OPT pass (performing simple optimizations).
+
+10.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+<suppressed ~9122 debug messages>
+Optimizing module eight_bit_cla_adder.
+Optimizing module fp_add.
+<suppressed ~271 debug messages>
+Optimizing module fp_normalize27.
+<suppressed ~183 debug messages>
+Optimizing module lzc24.
+<suppressed ~9 debug messages>
+Optimizing module round_pack.
+<suppressed ~371 debug messages>
+Optimizing module second_level_lookahead.
+Optimizing module unpack32.
+
+10.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\align_smaller\W=s32'00000000000000000000000000011011'.
+<suppressed ~4188 debug messages>
+Finding identical cells in module `\eight_bit_cla_adder'.
+Finding identical cells in module `\fp_add'.
+<suppressed ~84 debug messages>
+Finding identical cells in module `\fp_normalize27'.
+<suppressed ~15 debug messages>
+Finding identical cells in module `\lzc24'.
+Finding identical cells in module `\round_pack'.
+<suppressed ~33 debug messages>
+Finding identical cells in module `\second_level_lookahead'.
+Finding identical cells in module `\unpack32'.
+<suppressed ~66 debug messages>
+Removed a total of 1462 cells.
+
+10.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+Finding unused cells or wires in module \eight_bit_cla_adder..
+Finding unused cells or wires in module \fp_add..
+Finding unused cells or wires in module \fp_normalize27..
+Finding unused cells or wires in module \lzc24..
+Finding unused cells or wires in module \round_pack..
+Finding unused cells or wires in module \second_level_lookahead..
+Finding unused cells or wires in module \unpack32..
+Removed 1454 unused cells and 4732 unused wires.
+<suppressed ~1460 debug messages>
+
+10.21.5. Finished fast OPT passes.
+
+10.22. Executing ABC pass (technology mapping using ABC).
+
+10.22.1. Extracting gate netlist of module `$paramod\align_smaller\W=s32'00000000000000000000000000011011' to `<abc-temp-dir>/input.blif'..
+Replacing 60 occurrences of constant undef bits with constant zero bits
+
+10.22.1.1. Executed ABC.
+Extracted 723 gates and 760 wires to a netlist network with 35 inputs and 30 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: 
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library /var/folders/j2/_45yl0pn6377hh1gz09vq4_40000gn/T/yosys-abc-qa9BSf/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.22.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        3
+ABC RESULTS:            ANDNOT cells:      118
+ABC RESULTS:               MUX cells:      210
+ABC RESULTS:              NAND cells:       40
+ABC RESULTS:               NOR cells:       26
+ABC RESULTS:               NOT cells:       39
+ABC RESULTS:                OR cells:      208
+ABC RESULTS:             ORNOT cells:       13
+ABC RESULTS:               XOR cells:       11
+ABC RESULTS:        internal signals:      695
+ABC RESULTS:           input signals:       35
+ABC RESULTS:          output signals:       30
+Removing temp directory.
+
+10.22.2. Extracting gate netlist of module `\eight_bit_cla_adder' to `<abc-temp-dir>/input.blif'..
+
+10.22.2.1. Executed ABC.
+Extracted 130 gates and 147 wires to a netlist network with 17 inputs and 26 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: 
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library /var/folders/j2/_45yl0pn6377hh1gz09vq4_40000gn/T/yosys-abc-qa9BSf/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.22.2.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        7
+ABC RESULTS:            ANDNOT cells:       63
+ABC RESULTS:              NAND cells:        5
+ABC RESULTS:               NOR cells:        6
+ABC RESULTS:               NOT cells:        9
+ABC RESULTS:                OR cells:       35
+ABC RESULTS:             ORNOT cells:        1
+ABC RESULTS:              XNOR cells:        7
+ABC RESULTS:               XOR cells:        9
+ABC RESULTS:        internal signals:      104
+ABC RESULTS:           input signals:       17
+ABC RESULTS:          output signals:       26
+Removing temp directory.
+
+10.22.3. Extracting gate netlist of module `\fp_add' to `<abc-temp-dir>/input.blif'..
+
+10.22.3.1. Executed ABC.
+Extracted 436 gates and 532 wires to a netlist network with 94 inputs and 91 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: 
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library /var/folders/j2/_45yl0pn6377hh1gz09vq4_40000gn/T/yosys-abc-qa9BSf/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.22.3.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        8
+ABC RESULTS:            ANDNOT cells:      118
+ABC RESULTS:               MUX cells:       65
+ABC RESULTS:              NAND cells:        6
+ABC RESULTS:               NOR cells:       12
+ABC RESULTS:               NOT cells:       20
+ABC RESULTS:                OR cells:       31
+ABC RESULTS:             ORNOT cells:       39
+ABC RESULTS:              XNOR cells:       20
+ABC RESULTS:               XOR cells:       55
+ABC RESULTS:        internal signals:      347
+ABC RESULTS:           input signals:       94
+ABC RESULTS:          output signals:       91
+Removing temp directory.
+
+10.22.4. Extracting gate netlist of module `\fp_normalize27' to `<abc-temp-dir>/input.blif'..
+
+10.22.4.1. Executed ABC.
+Extracted 370 gates and 415 wires to a netlist network with 43 inputs and 37 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: 
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library /var/folders/j2/_45yl0pn6377hh1gz09vq4_40000gn/T/yosys-abc-qa9BSf/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.22.4.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:            ANDNOT cells:       73
+ABC RESULTS:               MUX cells:      173
+ABC RESULTS:              NAND cells:        4
+ABC RESULTS:               NOR cells:        4
+ABC RESULTS:               NOT cells:       38
+ABC RESULTS:                OR cells:       62
+ABC RESULTS:             ORNOT cells:        5
+ABC RESULTS:              XNOR cells:        6
+ABC RESULTS:               XOR cells:       19
+ABC RESULTS:        internal signals:      335
+ABC RESULTS:           input signals:       43
+ABC RESULTS:          output signals:       37
+Removing temp directory.
+
+10.22.5. Extracting gate netlist of module `\lzc24' to `<abc-temp-dir>/input.blif'..
+
+10.22.5.1. Executed ABC.
+Extracted 180 gates and 206 wires to a netlist network with 24 inputs and 5 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: 
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library /var/folders/j2/_45yl0pn6377hh1gz09vq4_40000gn/T/yosys-abc-qa9BSf/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.22.5.2. Re-integrating ABC results.
+ABC RESULTS:            ANDNOT cells:       52
+ABC RESULTS:              NAND cells:        1
+ABC RESULTS:               NOR cells:        9
+ABC RESULTS:                OR cells:       87
+ABC RESULTS:             ORNOT cells:       10
+ABC RESULTS:        internal signals:      177
+ABC RESULTS:           input signals:       24
+ABC RESULTS:          output signals:        5
+Removing temp directory.
+
+10.22.6. Extracting gate netlist of module `\round_pack' to `<abc-temp-dir>/input.blif'..
+
+10.22.6.1. Executed ABC.
+Extracted 247 gates and 287 wires to a netlist network with 38 inputs and 32 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: 
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library /var/folders/j2/_45yl0pn6377hh1gz09vq4_40000gn/T/yosys-abc-qa9BSf/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.22.6.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        5
+ABC RESULTS:            ANDNOT cells:       52
+ABC RESULTS:               MUX cells:       32
+ABC RESULTS:              NAND cells:       17
+ABC RESULTS:               NOR cells:       10
+ABC RESULTS:               NOT cells:        2
+ABC RESULTS:                OR cells:       68
+ABC RESULTS:             ORNOT cells:       15
+ABC RESULTS:              XNOR cells:        3
+ABC RESULTS:               XOR cells:       30
+ABC RESULTS:        internal signals:      217
+ABC RESULTS:           input signals:       38
+ABC RESULTS:          output signals:       32
+Removing temp directory.
+
+10.22.7. Extracting gate netlist of module `\second_level_lookahead' to `<abc-temp-dir>/input.blif'..
+
+10.22.7.1. Executed ABC.
+Extracted 26 gates and 35 wires to a netlist network with 9 inputs and 4 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: 
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library /var/folders/j2/_45yl0pn6377hh1gz09vq4_40000gn/T/yosys-abc-qa9BSf/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.22.7.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        4
+ABC RESULTS:            ANDNOT cells:        6
+ABC RESULTS:              NAND cells:        3
+ABC RESULTS:               NOT cells:        1
+ABC RESULTS:                OR cells:       12
+ABC RESULTS:             ORNOT cells:        1
+ABC RESULTS:        internal signals:       22
+ABC RESULTS:           input signals:        9
+ABC RESULTS:          output signals:        4
+Removing temp directory.
+
+10.22.8. Extracting gate netlist of module `\unpack32' to `<abc-temp-dir>/input.blif'..
+
+10.22.8.1. Executed ABC.
+Extracted 58 gates and 90 wires to a netlist network with 31 inputs and 24 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: 
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library /var/folders/j2/_45yl0pn6377hh1gz09vq4_40000gn/T/yosys-abc-qa9BSf/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.22.8.2. Re-integrating ABC results.
+ABC RESULTS:            ANDNOT cells:       24
+ABC RESULTS:               NOR cells:        2
+ABC RESULTS:                OR cells:       27
+ABC RESULTS:             ORNOT cells:        1
+ABC RESULTS:        internal signals:       35
+ABC RESULTS:           input signals:       31
+ABC RESULTS:          output signals:       24
+Removing temp directory.
+Removing global temp directory.
+
+10.23. Executing OPT pass (performing simple optimizations).
+
+10.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod\align_smaller\W=s32'00000000000000000000000000011011.
+<suppressed ~140 debug messages>
+Optimizing module eight_bit_cla_adder.
+Optimizing module fp_add.
+Optimizing module fp_normalize27.
+<suppressed ~44 debug messages>
+Optimizing module lzc24.
+Optimizing module round_pack.
+Optimizing module second_level_lookahead.
+Optimizing module unpack32.
+
+10.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\align_smaller\W=s32'00000000000000000000000000011011'.
+<suppressed ~27 debug messages>
+Finding identical cells in module `\eight_bit_cla_adder'.
+Finding identical cells in module `\fp_add'.
+<suppressed ~18 debug messages>
+Finding identical cells in module `\fp_normalize27'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\lzc24'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\round_pack'.
+Finding identical cells in module `\second_level_lookahead'.
+Finding identical cells in module `\unpack32'.
+Removed a total of 17 cells.
+
+10.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\align_smaller\W=s32'00000000000000000000000000011011..
+Finding unused cells or wires in module \eight_bit_cla_adder..
+Finding unused cells or wires in module \fp_add..
+Finding unused cells or wires in module \fp_normalize27..
+Finding unused cells or wires in module \lzc24..
+Finding unused cells or wires in module \round_pack..
+Finding unused cells or wires in module \second_level_lookahead..
+Finding unused cells or wires in module \unpack32..
+Removed 3 unused cells and 1247 unused wires.
+<suppressed ~79 debug messages>
+
+10.23.5. Finished fast OPT passes.
+
+10.24. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `fp_add'. Setting top module to fp_add.
+
+10.24.1. Analyzing design hierarchy..
+Top module:  \fp_add
+Used module:     $paramod\align_smaller\W=s32'00000000000000000000000000011011
+Used module:     \second_level_lookahead
+Used module:         \eight_bit_cla_adder
+Used module:     \fp_normalize27
+Used module:         \lzc24
+Used module:     \round_pack
+Used module:     \unpack32
+
+10.24.2. Analyzing design hierarchy..
+Top module:  \fp_add
+Used module:     $paramod\align_smaller\W=s32'00000000000000000000000000011011
+Used module:     \second_level_lookahead
+Used module:         \eight_bit_cla_adder
+Used module:     \fp_normalize27
+Used module:         \lzc24
+Used module:     \round_pack
+Used module:     \unpack32
+Removed 0 unused modules.
+
+10.25. Printing statistics.
+
+=== $paramod\align_smaller\W=s32'00000000000000000000000000011011 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      638 wires
+      723 wire bits
+       10 public wires
+       95 public wire bits
+        6 ports
+       65 port bits
+      658 cells
+      116   $_ANDNOT_
+        3   $_AND_
+      210   $_MUX_
+       40   $_NAND_
+       20   $_NOR_
+       38   $_NOT_
+       12   $_ORNOT_
+      208   $_OR_
+       11   $_XOR_
+
+=== eight_bit_cla_adder ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      127 wires
+      183 wire bits
+       11 public wires
+       67 public wire bits
+        8 ports
+       43 port bits
+      142 cells
+       63   $_ANDNOT_
+        7   $_AND_
+        5   $_NAND_
+        6   $_NOR_
+        9   $_NOT_
+        1   $_ORNOT_
+       35   $_OR_
+        7   $_XNOR_
+        9   $_XOR_
+
+=== fp_add ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      336 wires
+     1037 wire bits
+       58 public wires
+      736 public wire bits
+        7 ports
+      100 port bits
+      503 cells
+      118   $_ANDNOT_
+        8   $_AND_
+      135   $_DFF_PN0_
+       65   $_MUX_
+        6   $_NAND_
+       12   $_NOR_
+       20   $_NOT_
+       39   $_ORNOT_
+       31   $_OR_
+       20   $_XNOR_
+       49   $_XOR_
+        6 submodules
+        1   $paramod\align_smaller\W=s32'00000000000000000000000000011011
+        1   fp_normalize27
+        1   round_pack
+        1   second_level_lookahead
+        2   unpack32
+
+=== fp_normalize27 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      364 wires
+      462 wire bits
+       18 public wires
+      116 public wire bits
+       11 ports
+       76 port bits
+      383 cells
+       73   $_ANDNOT_
+        2   $_AND_
+      173   $_MUX_
+        4   $_NAND_
+        4   $_NOR_
+       36   $_NOT_
+        4   $_ORNOT_
+       62   $_OR_
+        6   $_XNOR_
+       19   $_XOR_
+        1 submodules
+        1   lzc24
+
+=== lzc24 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      156 wires
+      187 wire bits
+        3 public wires
+       34 public wire bits
+        2 ports
+       29 port bits
+      158 cells
+       52   $_ANDNOT_
+        1   $_NAND_
+        9   $_NOR_
+       10   $_ORNOT_
+       86   $_OR_
+
+=== round_pack ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      215 wires
+      393 wire bits
+       13 public wires
+      191 public wire bits
+        8 ports
+       70 port bits
+      234 cells
+       52   $_ANDNOT_
+        5   $_AND_
+       32   $_MUX_
+       17   $_NAND_
+       10   $_NOR_
+        2   $_NOT_
+       15   $_ORNOT_
+       68   $_OR_
+        3   $_XNOR_
+       30   $_XOR_
+
+=== second_level_lookahead ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       48 wires
+      293 wire bits
+       25 public wires
+      270 public wire bits
+        7 ports
+      162 port bits
+       27 cells
+        6   $_ANDNOT_
+        4   $_AND_
+        3   $_NAND_
+        1   $_NOT_
+        1   $_ORNOT_
+       12   $_OR_
+        4 submodules
+        4   eight_bit_cla_adder
+
+=== unpack32 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       35 wires
+      118 wire bits
+        5 public wires
+       88 public wire bits
+        4 ports
+       65 port bits
+       54 cells
+       24   $_ANDNOT_
+        2   $_NOR_
+        1   $_ORNOT_
+       27   $_OR_
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+     2639 fp_add
+      658 $paramod\align_smaller\W=s32'00000000000000000000000000011011
+      383 fp_normalize27
+      158   lzc24
+      234 round_pack
+       27 second_level_lookahead
+      142   eight_bit_cla_adder
+       54 unpack32
+
+        +----------Count including submodules.
+        | 
+     2335 wires
+     4063 wire bits
+      181 public wires
+     1886 public wire bits
+       81 ports
+      804 port bits
+        - memories
+        - memory bits
+        - processes
+     2639 cells
+      717   $_ANDNOT_
+       50   $_AND_
+      135   $_DFF_PN0_
+      480   $_MUX_
+       91   $_NAND_
+       83   $_NOR_
+      133   $_NOT_
+       87   $_ORNOT_
+      661   $_OR_
+       57   $_XNOR_
+      145   $_XOR_
+        6 submodules
+        1   $paramod\align_smaller\W=s32'00000000000000000000000000011011
+        1   fp_normalize27
+        1   round_pack
+        1   second_level_lookahead
+        2   unpack32
+
+10.26. Executing CHECK pass (checking for obvious problems).
+Checking module $paramod\align_smaller\W=s32'00000000000000000000000000011011...
+Checking module eight_bit_cla_adder...
+Checking module fp_add...
+Checking module fp_normalize27...
+Checking module lzc24...
+Checking module round_pack...
+Checking module second_level_lookahead...
+Checking module unpack32...
+Found and reported 0 problems.
+
+11. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell DFF_X1 (noninv, pins=4, area=4.52) is a direct match for cell type $_DFF_P_.
+  cell DFFR_X1 (noninv, pins=5, area=5.32) is a direct match for cell type $_DFF_PN0_.
+  cell DFFS_X1 (noninv, pins=5, area=5.32) is a direct match for cell type $_DFF_PN1_.
+  cell DFFRS_X1 (noninv, pins=6, area=6.38) is a direct match for cell type $_DFFSR_PNN_.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    \DFF_X1 _DFF_P_ (.CK( C), .D( D), .Q( Q), .QN(~Q));
+    unmapped dff cell: $_DFF_NN0_
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \DFFR_X1 _DFF_PN0_ (.CK( C), .D( D), .Q( Q), .QN(~Q), .RN( R));
+    \DFFS_X1 _DFF_PN1_ (.CK( C), .D( D), .Q( Q), .QN(~Q), .SN( R));
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFE_NN_
+    unmapped dff cell: $_DFFE_NP_
+    unmapped dff cell: $_DFFE_PN_
+    unmapped dff cell: $_DFFE_PP_
+    unmapped dff cell: $_DFFSR_NNN_
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    \DFFRS_X1 _DFFSR_PNN_ (.CK( C), .D( D), .Q( Q), .QN(~Q), .RN( R), .SN( S));
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+11.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+<suppressed ~8 debug messages>
+Mapping DFF cells in module `$paramod\align_smaller\W=s32'00000000000000000000000000011011':
+Mapping DFF cells in module `\eight_bit_cla_adder':
+Mapping DFF cells in module `\fp_add':
+  mapped 135 $_DFF_PN0_ cells to \DFFR_X1 cells.
+Mapping DFF cells in module `\fp_normalize27':
+Mapping DFF cells in module `\lzc24':
+Mapping DFF cells in module `\round_pack':
+Mapping DFF cells in module `\second_level_lookahead':
+Mapping DFF cells in module `\unpack32':
+
+12. Executing ABC pass (technology mapping using ABC).
+
+12.1. Extracting gate netlist of module `$paramod\align_smaller\W=s32'00000000000000000000000000011011' to `<abc-temp-dir>/input.blif'..
+
+12.1.1. Executed ABC.
+Extracted 658 gates and 693 wires to a netlist network with 35 inputs and 30 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: 
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -w /Users/avl/Documents/Grad/Fall/ECE552/ECE552/fp_adder/stdcells.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.04 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "ANTENNA_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLH_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLH_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLL_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLL_X2".
+ABC: Scl_LibertyReadGenlib() skipped cell "WELLTAP_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X2" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X4" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X8" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X16" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X32" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "LOGIC0_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "LOGIC1_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFRS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFF_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFF_X2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X16".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TINV_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "TLAT_X1".
+ABC: Library "NangateOpenCellLibrary" from "/Users/avl/Documents/Grad/Fall/ECE552/ECE552/fp_adder/stdcells.lib" has 90 cells (45 skipped: 21 seq; 6 tri-state; 8 no func; 10 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.06 sec
+ABC: Memory =   11.38 MB. Time =     0.06 sec
+ABC: Warning: Detected 2 multi-output cells (for example, "FA_X1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+12.1.2. Re-integrating ABC results.
+ABC RESULTS:           AND2_X1 cells:       14
+ABC RESULTS:           AND3_X1 cells:        1
+ABC RESULTS:           AND4_X1 cells:        1
+ABC RESULTS:         AOI211_X1 cells:        9
+ABC RESULTS:          AOI21_X1 cells:       38
+ABC RESULTS:         AOI221_X1 cells:        7
+ABC RESULTS:          AOI22_X1 cells:       11
+ABC RESULTS:            INV_X1 cells:       17
+ABC RESULTS:           MUX2_X1 cells:       35
+ABC RESULTS:          NAND2_X1 cells:       52
+ABC RESULTS:          NAND3_X1 cells:       10
+ABC RESULTS:          NAND4_X1 cells:        6
+ABC RESULTS:           NOR2_X1 cells:       47
+ABC RESULTS:           NOR3_X1 cells:       12
+ABC RESULTS:           NOR4_X1 cells:        8
+ABC RESULTS:         OAI211_X1 cells:       14
+ABC RESULTS:          OAI21_X1 cells:       50
+ABC RESULTS:         OAI221_X1 cells:        4
+ABC RESULTS:          OAI22_X1 cells:        4
+ABC RESULTS:          OAI33_X1 cells:        4
+ABC RESULTS:            OR2_X1 cells:        9
+ABC RESULTS:            OR3_X1 cells:        6
+ABC RESULTS:          XNOR2_X1 cells:        4
+ABC RESULTS:           XOR2_X1 cells:        1
+ABC RESULTS:        internal signals:      628
+ABC RESULTS:           input signals:       35
+ABC RESULTS:          output signals:       30
+Removing temp directory.
+
+12.2. Extracting gate netlist of module `\eight_bit_cla_adder' to `<abc-temp-dir>/input.blif'..
+
+12.2.1. Executed ABC.
+Extracted 142 gates and 159 wires to a netlist network with 17 inputs and 26 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: 
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -w /Users/avl/Documents/Grad/Fall/ECE552/ECE552/fp_adder/stdcells.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.04 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "ANTENNA_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLH_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLH_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLL_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLL_X2".
+ABC: Scl_LibertyReadGenlib() skipped cell "WELLTAP_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X2" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X4" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X8" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X16" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X32" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "LOGIC0_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "LOGIC1_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFRS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFF_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFF_X2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X16".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TINV_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "TLAT_X1".
+ABC: Library "NangateOpenCellLibrary" from "/Users/avl/Documents/Grad/Fall/ECE552/ECE552/fp_adder/stdcells.lib" has 90 cells (45 skipped: 21 seq; 6 tri-state; 8 no func; 10 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.06 sec
+ABC: Memory =   11.38 MB. Time =     0.06 sec
+ABC: Warning: Detected 2 multi-output cells (for example, "FA_X1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+12.2.2. Re-integrating ABC results.
+ABC RESULTS:           AND2_X1 cells:        4
+ABC RESULTS:          AOI21_X1 cells:        5
+ABC RESULTS:          AOI22_X1 cells:        1
+ABC RESULTS:            INV_X1 cells:       12
+ABC RESULTS:          NAND2_X1 cells:       13
+ABC RESULTS:          NAND3_X1 cells:        1
+ABC RESULTS:           NOR2_X1 cells:        8
+ABC RESULTS:           NOR4_X1 cells:        1
+ABC RESULTS:         OAI211_X1 cells:        2
+ABC RESULTS:          OAI21_X1 cells:        4
+ABC RESULTS:         OAI221_X1 cells:        1
+ABC RESULTS:          OAI22_X1 cells:        1
+ABC RESULTS:            OR2_X1 cells:        3
+ABC RESULTS:          XNOR2_X1 cells:        7
+ABC RESULTS:           XOR2_X1 cells:        1
+ABC RESULTS:        internal signals:      116
+ABC RESULTS:           input signals:       17
+ABC RESULTS:          output signals:       26
+Removing temp directory.
+
+12.3. Extracting gate netlist of module `\fp_add' to `<abc-temp-dir>/input.blif'..
+
+12.3.1. Executed ABC.
+Extracted 368 gates and 462 wires to a netlist network with 94 inputs and 91 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: 
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -w /Users/avl/Documents/Grad/Fall/ECE552/ECE552/fp_adder/stdcells.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.04 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "ANTENNA_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLH_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLH_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLL_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLL_X2".
+ABC: Scl_LibertyReadGenlib() skipped cell "WELLTAP_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X2" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X4" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X8" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X16" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X32" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "LOGIC0_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "LOGIC1_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFRS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFF_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFF_X2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X16".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TINV_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "TLAT_X1".
+ABC: Library "NangateOpenCellLibrary" from "/Users/avl/Documents/Grad/Fall/ECE552/ECE552/fp_adder/stdcells.lib" has 90 cells (45 skipped: 21 seq; 6 tri-state; 8 no func; 10 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.06 sec
+ABC: Memory =   11.38 MB. Time =     0.06 sec
+ABC: Warning: Detected 2 multi-output cells (for example, "FA_X1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+12.3.2. Re-integrating ABC results.
+ABC RESULTS:           AND2_X1 cells:        8
+ABC RESULTS:           AND3_X1 cells:        3
+ABC RESULTS:         AOI211_X1 cells:        6
+ABC RESULTS:          AOI21_X1 cells:       14
+ABC RESULTS:         AOI221_X1 cells:        1
+ABC RESULTS:          AOI22_X1 cells:        9
+ABC RESULTS:            INV_X1 cells:       44
+ABC RESULTS:           MUX2_X1 cells:       59
+ABC RESULTS:          NAND2_X1 cells:       20
+ABC RESULTS:          NAND3_X1 cells:        9
+ABC RESULTS:          NAND4_X1 cells:        1
+ABC RESULTS:           NOR2_X1 cells:       12
+ABC RESULTS:           NOR3_X1 cells:        5
+ABC RESULTS:           NOR4_X1 cells:        5
+ABC RESULTS:         OAI211_X1 cells:        7
+ABC RESULTS:          OAI21_X1 cells:       10
+ABC RESULTS:         OAI222_X1 cells:        1
+ABC RESULTS:          OAI22_X1 cells:        6
+ABC RESULTS:          OAI33_X1 cells:        1
+ABC RESULTS:            OR2_X1 cells:        8
+ABC RESULTS:            OR3_X1 cells:        2
+ABC RESULTS:            OR4_X1 cells:        1
+ABC RESULTS:          XNOR2_X1 cells:       11
+ABC RESULTS:           XOR2_X1 cells:       31
+ABC RESULTS:          _const0_ cells:        1
+ABC RESULTS:        internal signals:      277
+ABC RESULTS:           input signals:       94
+ABC RESULTS:          output signals:       91
+Removing temp directory.
+
+12.4. Extracting gate netlist of module `\fp_normalize27' to `<abc-temp-dir>/input.blif'..
+
+12.4.1. Executed ABC.
+Extracted 383 gates and 426 wires to a netlist network with 43 inputs and 37 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: 
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -w /Users/avl/Documents/Grad/Fall/ECE552/ECE552/fp_adder/stdcells.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.04 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "ANTENNA_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLH_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLH_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLL_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLL_X2".
+ABC: Scl_LibertyReadGenlib() skipped cell "WELLTAP_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X2" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X4" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X8" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X16" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X32" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "LOGIC0_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "LOGIC1_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFRS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFF_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFF_X2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X16".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TINV_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "TLAT_X1".
+ABC: Library "NangateOpenCellLibrary" from "/Users/avl/Documents/Grad/Fall/ECE552/ECE552/fp_adder/stdcells.lib" has 90 cells (45 skipped: 21 seq; 6 tri-state; 8 no func; 10 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.06 sec
+ABC: Memory =   11.38 MB. Time =     0.06 sec
+ABC: Warning: Detected 2 multi-output cells (for example, "FA_X1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+12.4.2. Re-integrating ABC results.
+ABC RESULTS:           AND2_X1 cells:        9
+ABC RESULTS:         AOI211_X1 cells:       10
+ABC RESULTS:          AOI21_X1 cells:       24
+ABC RESULTS:         AOI221_X1 cells:        2
+ABC RESULTS:         AOI222_X1 cells:        1
+ABC RESULTS:          AOI22_X1 cells:        1
+ABC RESULTS:            INV_X1 cells:       25
+ABC RESULTS:           MUX2_X1 cells:       47
+ABC RESULTS:          NAND2_X1 cells:       26
+ABC RESULTS:          NAND3_X1 cells:       20
+ABC RESULTS:          NAND4_X1 cells:        2
+ABC RESULTS:           NOR2_X1 cells:       37
+ABC RESULTS:           NOR3_X1 cells:        4
+ABC RESULTS:           NOR4_X1 cells:        7
+ABC RESULTS:         OAI211_X1 cells:       31
+ABC RESULTS:          OAI21_X1 cells:       63
+ABC RESULTS:         OAI221_X1 cells:        6
+ABC RESULTS:         OAI222_X1 cells:        1
+ABC RESULTS:          OAI22_X1 cells:       10
+ABC RESULTS:          OAI33_X1 cells:        3
+ABC RESULTS:            OR2_X1 cells:        4
+ABC RESULTS:            OR3_X1 cells:        1
+ABC RESULTS:          XNOR2_X1 cells:        4
+ABC RESULTS:           XOR2_X1 cells:        2
+ABC RESULTS:        internal signals:      346
+ABC RESULTS:           input signals:       43
+ABC RESULTS:          output signals:       37
+Removing temp directory.
+
+12.5. Extracting gate netlist of module `\lzc24' to `<abc-temp-dir>/input.blif'..
+
+12.5.1. Executed ABC.
+Extracted 158 gates and 182 wires to a netlist network with 24 inputs and 5 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: 
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -w /Users/avl/Documents/Grad/Fall/ECE552/ECE552/fp_adder/stdcells.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.04 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "ANTENNA_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLH_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLH_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLL_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLL_X2".
+ABC: Scl_LibertyReadGenlib() skipped cell "WELLTAP_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X2" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X4" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X8" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X16" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X32" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "LOGIC0_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "LOGIC1_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFRS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFF_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFF_X2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X16".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TINV_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "TLAT_X1".
+ABC: Library "NangateOpenCellLibrary" from "/Users/avl/Documents/Grad/Fall/ECE552/ECE552/fp_adder/stdcells.lib" has 90 cells (45 skipped: 21 seq; 6 tri-state; 8 no func; 10 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.05 sec
+ABC: Memory =   11.38 MB. Time =     0.05 sec
+ABC: Warning: Detected 2 multi-output cells (for example, "FA_X1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+12.5.2. Re-integrating ABC results.
+ABC RESULTS:           AND2_X1 cells:        1
+ABC RESULTS:         AOI211_X1 cells:        2
+ABC RESULTS:          AOI21_X1 cells:        5
+ABC RESULTS:         AOI221_X1 cells:        1
+ABC RESULTS:            INV_X1 cells:       12
+ABC RESULTS:          NAND2_X1 cells:        2
+ABC RESULTS:          NAND3_X1 cells:        5
+ABC RESULTS:          NAND4_X1 cells:        4
+ABC RESULTS:           NOR2_X1 cells:       14
+ABC RESULTS:           NOR3_X1 cells:        2
+ABC RESULTS:           NOR4_X1 cells:        7
+ABC RESULTS:         OAI211_X1 cells:        2
+ABC RESULTS:          OAI21_X1 cells:        7
+ABC RESULTS:            OR3_X1 cells:        1
+ABC RESULTS:            OR4_X1 cells:        3
+ABC RESULTS:        internal signals:      153
+ABC RESULTS:           input signals:       24
+ABC RESULTS:          output signals:        5
+Removing temp directory.
+
+12.6. Extracting gate netlist of module `\round_pack' to `<abc-temp-dir>/input.blif'..
+
+12.6.1. Executed ABC.
+Extracted 234 gates and 272 wires to a netlist network with 38 inputs and 32 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: 
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -w /Users/avl/Documents/Grad/Fall/ECE552/ECE552/fp_adder/stdcells.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.04 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "ANTENNA_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLH_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLH_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLL_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLL_X2".
+ABC: Scl_LibertyReadGenlib() skipped cell "WELLTAP_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X2" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X4" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X8" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X16" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X32" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "LOGIC0_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "LOGIC1_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFRS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFF_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFF_X2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X16".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TINV_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "TLAT_X1".
+ABC: Library "NangateOpenCellLibrary" from "/Users/avl/Documents/Grad/Fall/ECE552/ECE552/fp_adder/stdcells.lib" has 90 cells (45 skipped: 21 seq; 6 tri-state; 8 no func; 10 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.05 sec
+ABC: Memory =   11.38 MB. Time =     0.05 sec
+ABC: Warning: Detected 2 multi-output cells (for example, "FA_X1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+12.6.2. Re-integrating ABC results.
+ABC RESULTS:           AND2_X1 cells:        8
+ABC RESULTS:           AND3_X1 cells:        5
+ABC RESULTS:           AND4_X1 cells:        5
+ABC RESULTS:          AOI21_X1 cells:       14
+ABC RESULTS:            INV_X1 cells:        6
+ABC RESULTS:           MUX2_X1 cells:        1
+ABC RESULTS:          NAND2_X1 cells:        6
+ABC RESULTS:          NAND3_X1 cells:        4
+ABC RESULTS:          NAND4_X1 cells:        4
+ABC RESULTS:           NOR2_X1 cells:        5
+ABC RESULTS:           NOR3_X1 cells:        2
+ABC RESULTS:           NOR4_X1 cells:       26
+ABC RESULTS:          OAI21_X1 cells:        4
+ABC RESULTS:          OAI22_X1 cells:        1
+ABC RESULTS:            OR2_X1 cells:        7
+ABC RESULTS:            OR4_X1 cells:        1
+ABC RESULTS:          XNOR2_X1 cells:       15
+ABC RESULTS:           XOR2_X1 cells:        9
+ABC RESULTS:        internal signals:      202
+ABC RESULTS:           input signals:       38
+ABC RESULTS:          output signals:       32
+Removing temp directory.
+
+12.7. Extracting gate netlist of module `\second_level_lookahead' to `<abc-temp-dir>/input.blif'..
+
+12.7.1. Executed ABC.
+Extracted 27 gates and 36 wires to a netlist network with 9 inputs and 4 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: 
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -w /Users/avl/Documents/Grad/Fall/ECE552/ECE552/fp_adder/stdcells.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.04 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "ANTENNA_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLH_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLH_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLL_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLL_X2".
+ABC: Scl_LibertyReadGenlib() skipped cell "WELLTAP_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X2" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X4" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X8" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X16" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X32" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "LOGIC0_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "LOGIC1_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFRS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFF_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFF_X2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X16".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TINV_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "TLAT_X1".
+ABC: Library "NangateOpenCellLibrary" from "/Users/avl/Documents/Grad/Fall/ECE552/ECE552/fp_adder/stdcells.lib" has 90 cells (45 skipped: 21 seq; 6 tri-state; 8 no func; 10 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.06 sec
+ABC: Memory =   11.38 MB. Time =     0.06 sec
+ABC: Warning: Detected 2 multi-output cells (for example, "FA_X1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+12.7.2. Re-integrating ABC results.
+ABC RESULTS:           AND2_X1 cells:        1
+ABC RESULTS:          AOI21_X1 cells:        4
+ABC RESULTS:            INV_X1 cells:        4
+ABC RESULTS:          NAND3_X1 cells:        1
+ABC RESULTS:          OAI21_X1 cells:        2
+ABC RESULTS:            OR2_X1 cells:        1
+ABC RESULTS:        internal signals:       23
+ABC RESULTS:           input signals:        9
+ABC RESULTS:          output signals:        4
+Removing temp directory.
+
+12.8. Extracting gate netlist of module `\unpack32' to `<abc-temp-dir>/input.blif'..
+
+12.8.1. Executed ABC.
+Extracted 54 gates and 85 wires to a netlist network with 31 inputs and 24 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: 
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -w /Users/avl/Documents/Grad/Fall/ECE552/ECE552/fp_adder/stdcells.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.04 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "ANTENNA_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATETST_X8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "CLKGATE_X8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFRS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFFS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLH_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLH_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLL_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DLL_X2".
+ABC: Scl_LibertyReadGenlib() skipped cell "WELLTAP_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X2" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X4" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X8" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X16" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "FILLCELL_X32" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "LOGIC0_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped cell "LOGIC1_X1" due to dont_use attribute.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFRS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFRS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFR_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFR_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFS_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFFS_X2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFF_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "SDFF_X2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TBUF_X16".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "TINV_X1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "TLAT_X1".
+ABC: Library "NangateOpenCellLibrary" from "/Users/avl/Documents/Grad/Fall/ECE552/ECE552/fp_adder/stdcells.lib" has 90 cells (45 skipped: 21 seq; 6 tri-state; 8 no func; 10 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.05 sec
+ABC: Memory =   11.38 MB. Time =     0.05 sec
+ABC: Warning: Detected 2 multi-output cells (for example, "FA_X1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+12.8.2. Re-integrating ABC results.
+ABC RESULTS:            BUF_X1 cells:       23
+ABC RESULTS:          NAND2_X1 cells:        1
+ABC RESULTS:           NOR4_X1 cells:        2
+ABC RESULTS:        internal signals:       30
+ABC RESULTS:           input signals:       31
+ABC RESULTS:          output signals:       24
+Removing temp directory.
+Removing global temp directory.
+
+13. Printing statistics.
+
+=== $paramod\align_smaller\W=s32'00000000000000000000000000011011 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     1037        - wires
+     1122        - wire bits
+       10        - public wires
+       95        - public wire bits
+        6        - ports
+       65        - port bits
+      364  407.778 cells
+       14   14.896   AND2_X1
+        1     1.33   AND3_X1
+        1    1.596   AND4_X1
+        9    11.97   AOI211_X1
+       38   40.432   AOI21_X1
+        7   11.172   AOI221_X1
+       11    14.63   AOI22_X1
+       17    9.044   INV_X1
+       35    65.17   MUX2_X1
+       52   41.496   NAND2_X1
+       10    10.64   NAND3_X1
+        6     7.98   NAND4_X1
+       47   37.506   NOR2_X1
+       12   12.768   NOR3_X1
+        8    10.64   NOR4_X1
+       14    18.62   OAI211_X1
+       50     53.2   OAI21_X1
+        4    6.384   OAI221_X1
+        4     5.32   OAI22_X1
+        4    7.448   OAI33_X1
+        9    9.576   OR2_X1
+        6     7.98   OR3_X1
+        4    6.384   XNOR2_X1
+        1    1.596   XOR2_X1
+
+   Chip area for module '$paramod\align_smaller\W=s32'00000000000000000000000000011011': 407.778000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== eight_bit_cla_adder ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      208        - wires
+      264        - wire bits
+       11        - public wires
+       67        - public wire bits
+        8        - ports
+       43        - port bits
+       64   62.244 cells
+        4    4.256   AND2_X1
+        5     5.32   AOI21_X1
+        1     1.33   AOI22_X1
+       12    6.384   INV_X1
+       13   10.374   NAND2_X1
+        1    1.064   NAND3_X1
+        8    6.384   NOR2_X1
+        1     1.33   NOR4_X1
+        2     2.66   OAI211_X1
+        4    4.256   OAI21_X1
+        1    1.596   OAI221_X1
+        1     1.33   OAI22_X1
+        3    3.192   OR2_X1
+        7   11.172   XNOR2_X1
+        1    1.596   XOR2_X1
+
+   Chip area for module '\eight_bit_cla_adder': 62.244000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== fp_add ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      840        - wires
+     1541        - wire bits
+       58        - public wires
+      736        - public wire bits
+        7        - ports
+      100        - port bits
+      409 1.06E+03 cells
+        8    8.512   AND2_X1
+        3     3.99   AND3_X1
+        6     7.98   AOI211_X1
+       14   14.896   AOI21_X1
+        1    1.596   AOI221_X1
+        9    11.97   AOI22_X1
+      135    718.2   DFFR_X1
+       44   23.408   INV_X1
+       59  109.858   MUX2_X1
+       20    15.96   NAND2_X1
+        9    9.576   NAND3_X1
+        1     1.33   NAND4_X1
+       12    9.576   NOR2_X1
+        5     5.32   NOR3_X1
+        5     6.65   NOR4_X1
+        7     9.31   OAI211_X1
+       10    10.64   OAI21_X1
+        1    2.128   OAI222_X1
+        6     7.98   OAI22_X1
+        1    1.862   OAI33_X1
+        8    8.512   OR2_X1
+        2     2.66   OR3_X1
+        1    1.596   OR4_X1
+       11   17.556   XNOR2_X1
+       31   49.476   XOR2_X1
+        6        - submodules
+        1        -   $paramod\align_smaller\W=s32'00000000000000000000000000011011
+        1        -   fp_normalize27
+        1        -   round_pack
+        1        -   second_level_lookahead
+        2        -   unpack32
+
+   Chip area for module '\fp_add': 1060.542000
+     of which used for sequential elements: 718.200000 (67.72%)
+
+=== fp_normalize27 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      747        - wires
+      845        - wire bits
+       18        - public wires
+      116        - public wire bits
+       11        - ports
+       76        - port bits
+      340   397.67 cells
+        9    9.576   AND2_X1
+       10     13.3   AOI211_X1
+       24   25.536   AOI21_X1
+        2    3.192   AOI221_X1
+        1    2.128   AOI222_X1
+        1     1.33   AOI22_X1
+       25     13.3   INV_X1
+       47   87.514   MUX2_X1
+       26   20.748   NAND2_X1
+       20    21.28   NAND3_X1
+        2     2.66   NAND4_X1
+       37   29.526   NOR2_X1
+        4    4.256   NOR3_X1
+        7     9.31   NOR4_X1
+       31    41.23   OAI211_X1
+       63   67.032   OAI21_X1
+        6    9.576   OAI221_X1
+        1    2.128   OAI222_X1
+       10     13.3   OAI22_X1
+        3    5.586   OAI33_X1
+        4    4.256   OR2_X1
+        1     1.33   OR3_X1
+        4    6.384   XNOR2_X1
+        2    3.192   XOR2_X1
+        1        - submodules
+        1        -   lzc24
+
+   Chip area for module '\fp_normalize27': 397.670000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== lzc24 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      248        - wires
+      279        - wire bits
+        3        - public wires
+       34        - public wire bits
+        2        - ports
+       29        - port bits
+       68   68.096 cells
+        1    1.064   AND2_X1
+        2     2.66   AOI211_X1
+        5     5.32   AOI21_X1
+        1    1.596   AOI221_X1
+       12    6.384   INV_X1
+        2    1.596   NAND2_X1
+        5     5.32   NAND3_X1
+        4     5.32   NAND4_X1
+       14   11.172   NOR2_X1
+        2    2.128   NOR3_X1
+        7     9.31   NOR4_X1
+        2     2.66   OAI211_X1
+        7    7.448   OAI21_X1
+        1     1.33   OR3_X1
+        3    4.788   OR4_X1
+
+   Chip area for module '\lzc24': 68.096000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== round_pack ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      376        - wires
+      554        - wire bits
+       13        - public wires
+      191        - public wire bits
+        8        - ports
+       70        - port bits
+      123  151.088 cells
+        8    8.512   AND2_X1
+        5     6.65   AND3_X1
+        5     7.98   AND4_X1
+       14   14.896   AOI21_X1
+        6    3.192   INV_X1
+        1    1.862   MUX2_X1
+        6    4.788   NAND2_X1
+        4    4.256   NAND3_X1
+        4     5.32   NAND4_X1
+        5     3.99   NOR2_X1
+        2    2.128   NOR3_X1
+       26    34.58   NOR4_X1
+        4    4.256   OAI21_X1
+        1     1.33   OAI22_X1
+        7    7.448   OR2_X1
+        1    1.596   OR4_X1
+       15    23.94   XNOR2_X1
+        9   14.364   XOR2_X1
+
+   Chip area for module '\round_pack': 151.088000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== second_level_lookahead ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       70        - wires
+      315        - wire bits
+       25        - public wires
+      270        - public wire bits
+        7        - ports
+      162        - port bits
+       13   11.704 cells
+        1    1.064   AND2_X1
+        4    4.256   AOI21_X1
+        4    2.128   INV_X1
+        1    1.064   NAND3_X1
+        2    2.128   OAI21_X1
+        1    1.064   OR2_X1
+        4        - submodules
+        4        -   eight_bit_cla_adder
+
+   Chip area for module '\second_level_lookahead': 11.704000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== unpack32 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       92        - wires
+      175        - wire bits
+        5        - public wires
+       88        - public wire bits
+        4        - ports
+       65        - port bits
+       26   21.812 cells
+       23   18.354   BUF_X1
+        1    0.798   NAND2_X1
+        2     2.66   NOR4_X1
+
+   Chip area for module '\unpack32': 21.812000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+     1625 2.39E+03 fp_add
+      364  407.778 $paramod\align_smaller\W=s32'00000000000000000000000000011011
+      340   397.67 fp_normalize27
+       68   68.096   lzc24
+      123  151.088 round_pack
+       13   11.704 second_level_lookahead
+       64   62.244   eight_bit_cla_adder
+       26   21.812 unpack32
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+     4334        - wires
+     6062        - wire bits
+      181        - public wires
+     1886        - public wire bits
+       81        - ports
+      804        - port bits
+        -        - memories
+        -        - memory bits
+        -        - processes
+     1625 2.39E+03 cells
+       57   60.648   AND2_X1
+        9    11.97   AND3_X1
+        6    9.576   AND4_X1
+       27    35.91   AOI211_X1
+      119  126.616   AOI21_X1
+       11   17.556   AOI221_X1
+        1    2.128   AOI222_X1
+       25    33.25   AOI22_X1
+       46   36.708   BUF_X1
+      135    718.2   DFFR_X1
+      156   82.992   INV_X1
+      142  264.404   MUX2_X1
+      160   127.68   NAND2_X1
+       53   56.392   NAND3_X1
+       17    22.61   NAND4_X1
+      147  117.306   NOR2_X1
+       25     26.6   NOR3_X1
+       61    81.13   NOR4_X1
+       62    82.46   OAI211_X1
+      152  161.728   OAI21_X1
+       14   22.344   OAI221_X1
+        2    4.256   OAI222_X1
+       25    33.25   OAI22_X1
+        8   14.896   OAI33_X1
+       41   43.624   OR2_X1
+       10     13.3   OR3_X1
+        5     7.98   OR4_X1
+       62   98.952   XNOR2_X1
+       47   75.012   XOR2_X1
+        6 1.33E+03 submodules
+        1  407.778   $paramod\align_smaller\W=s32'00000000000000000000000000011011
+        1  465.766   fp_normalize27
+        1  151.088   round_pack
+        1   260.68   second_level_lookahead
+        2   43.624   unpack32
+
+   Chip area for top module '\fp_add': 2389.478000
+     of which used for sequential elements: 718.200000 (30.06%)
+
+End of script. Logfile hash: 2dfca55b30, CPU: user 0.76s system 0.04s, MEM: 83.83 MB peak
+Yosys 0.60 (git sha1 5bafeb77dc71e054fa331ab9efa613e6fb0a1c49, clang++ 17.0.0 -fPIC -O3)
+Time spent: 68% 2x abc (1 sec), 7% 42x opt_expr (0 sec), ...
