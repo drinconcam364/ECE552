@@ -1,18 +1,18 @@
 read_liberty -lib stdcells.lib
 
-read_verilog
+read_verilog -sv mulAddRecFN.v Berk_MAC_wrapper.v HardFloat_primitives.v HardFloat_rawFN.v isSigNaNRecFN.v
 
-# Set top module
-hierarchy -top fp_add
+hierarchy -check -top Berk_MAC_wrapper
 
-# Generic synthesis
-synth -top fp_add
+synth -top Berk_MAC_wrapper
 
 # Map flip-flops
 dfflibmap -liberty stdcells.lib
 
-# 6) Technology mapping for combinational logic using ABC
 abc -liberty stdcells.lib
 
-# Area
+# Reports
 stat -liberty stdcells.lib
+
+# Timing report
+write_verilog -noattr Berk_MAC_wrapper_mapped.v

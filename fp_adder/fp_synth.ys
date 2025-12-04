@@ -3,7 +3,7 @@ read_liberty -lib stdcells.lib
 read_verilog fp_add.v align_smaller.v round_pack.v unpack32.v second_level_lookahead.v normalize.v eight_bit_cla_adder.v
 
 # Set top module
-hierarchy -top fp_add
+hierarchy -check -top fp_add
 
 # Generic synthesis
 synth -top fp_add
