@@ -1,0 +1,18 @@
+read_liberty -lib stdcells.lib
+
+read_verilog -sv # add all of verilog files here
+
+hierarchy -check -top FDPMAC
+
+synth -top FDPMAC
+
+# Map flip-flops
+dfflibmap -liberty stdcells.lib
+
+abc -liberty stdcells.lib
+
+# Reports
+stat -liberty stdcells.lib
+
+# Timing report
+write_verilog -noattr FDPMAC_mapped.v
